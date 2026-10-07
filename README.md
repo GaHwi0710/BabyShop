@@ -1,7 +1,7 @@
 # 🍼 Hệ Thống Quản Lý Cửa Hàng Mẹ & Bé (Baby Shop Management ERP)
 
 > **Dự án Ứng dụng Công nghệ Thông tin trong Kế toán Doanh nghiệp Thương mại**  
-> Nghiên cứu và xây dựng giải pháp ERP tinh gọn, quản lý toàn diện chuỗi cung ứng, kho vận, bán lẻ POS, theo dõi công nợ hai đầu và hạch toán kế toán cho chuỗi cửa hàng Mẹ & Bé **BabyBon**.
+> Nghiên cứu và xây dựng giải pháp ERP tinh gọn, quản lý toàn diện chuỗi cung ứng, kho vận, bán lẻ POS, theo dõi công nợ hai đầu và hạch toán kế toán cho **Cửa hàng Mẹ & Bé**.
 
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.11.0-brightgreen.svg?style=flat-square)](https://nodejs.org/)
 [![Vite Version](https://img.shields.io/badge/vite-5.1.4-646CFF.svg?style=flat-square)](https://vitejs.dev/)
@@ -36,8 +36,7 @@
 ## I. Giới thiệu dự án
 
 ### 1. Tên dự án
-**HỆ THỐNG QUẢN LÝ CỬA HÀNG MẸ & BÉ (BABY SHOP MANAGEMENT ERP)**  
-*Tên nhận diện thương hiệu cửa hàng: BabyBon*
+**HỆ THỐNG QUẢN LÝ CỬA HÀNG MẸ & BÉ (BABY SHOP MANAGEMENT ERP)**
 
 ### 2. Mô tả ngắn gọn
 Hệ thống Quản lý Cửa hàng Mẹ & Bé là nền tảng phần mềm quản trị doanh nghiệp (ERP) thương mại bán lẻ chuyên sâu, được thiết kế và triển khai nhằm khép kín chu trình hoạt động của một cửa hàng kinh doanh sản phẩm mẹ và bé. Phần mềm số hóa đồng bộ từ khâu lập kế hoạch đặt hàng nhà cung cấp, nhập kho, quản lý kho hàng - hạn sử dụng, bán hàng tại quầy (POS), quản lý đổi trả, theo dõi công nợ khách hàng và nhà cung cấp, đến công tác lập phiếu thu - chi tiền tệ và tổng hợp các báo cáo tài chính - quản trị kế toán.
@@ -80,7 +79,7 @@ Hệ thống bao gồm 7 phân hệ nghiệp vụ chính:
 
 ### 1. Hình ảnh thực tế trong repository
 
-#### Logo nhận diện thương hiệu Cửa hàng Mẹ & Bé BabyBon
+#### Logo nhận diện thương hiệu Cửa hàng Mẹ & Bé
 Vị trí file: `frontend/public/logo.png` (và `frontend/src/assets/logo.png`):
 
 <p align="center">
@@ -871,7 +870,7 @@ Dưới đây là các định hướng nâng cấp trong tương lai nhằm đ�
 - **Cơ sở đào tạo**: **Trường Đại học Tài chính - Ngân hàng Hà Nội (FBU)**
 - **Đơn vị phụ trách**: **Viện Công nghệ Thông tin**
 - **Học phần**: **Ứng dụng Tin học trong Kế toán**
-- **Đề tài**: **Hệ thống Quản lý Cửa hàng Mẹ & Bé (Baby Shop Management ERP - BabyBon)**
+- **Đề tài**: **Hệ thống Quản lý Cửa hàng Mẹ & Bé (Baby Shop Management ERP)**
 - **Giảng viên hướng dẫn**: **Thầy Vũ Minh Tâm**
 
 ### 2. Nhóm sinh viên thực hiện (Lớp: D.12.48.02)
