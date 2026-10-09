@@ -73,7 +73,29 @@ export function DebtsPage({ title, description }) {
   }, []);
 
   const supplierDebts = useMemo(() => {
-    return debts.filter((d) => d.LoaiCongNo === "Nhà cung cấp" || (!d.MaKH && (!!d.MaNCC || d.type === "suppliers" || !d.type)));
+    return debts.filter((d) => {
+      // 1. Loại trừ hoàn toàn nếu là công nợ khách hàng
+      if (
+        d.LoaiCongNo === "Khách hàng" ||
+        d.type === "customers" ||
+        Boolean(d.MaKH) ||
+        Boolean(d.MaKHCode) ||
+        Boolean(d.MaHD) ||
+        Boolean(d.MaDH)
+      ) {
+        return false;
+      }
+      // 2. Chỉ chấp nhận các khoản công nợ của nhà cung cấp
+      return (
+        d.LoaiCongNo === "Nhà cung cấp" ||
+        d.type === "suppliers" ||
+        Boolean(d.MaNCC) ||
+        Boolean(d.MaNCCCode) ||
+        Boolean(d.MaPN) ||
+        Boolean(d.MaPhieuNhap) ||
+        Boolean(d.MaDDH)
+      );
+    });
   }, [debts]);
 
   const stats = useMemo(() => {
@@ -172,8 +194,8 @@ export function DebtsPage({ title, description }) {
     try {
       const { printReport } = await import("../../lib/reportPrint.js");
       printReport("debts", {
-        debts: supplierDebts,
-        customers: [],
+        debts: visible,
+        supplierDebts: visible,
         suppliers,
       });
     } catch {

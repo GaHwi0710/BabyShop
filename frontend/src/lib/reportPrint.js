@@ -14,7 +14,7 @@
  * 10. Sổ chi tiết Vật liệu, Dụng cụ, Sản phẩm, Hàng hóa (A4 Landscape, Mẫu số S10-DN theo TT 99/2025/TT-BTC)
  * 11. Sổ Nhật ký chung (A4 Portrait, Mẫu số S03a-DNN theo TT 133/2016/TT-BTC)
  * 12. Sổ Tài sản cố định (A4 Landscape, Mẫu số S21-DN theo TT 200/2014/TT-BTC)
- * 13. Báo cáo Công nợ phải thu & phải trả (A4 Landscape)
+ * 13. Báo cáo Công nợ phải trả Nhà cung cấp (A4 Landscape)
  * 14. Báo cáo Thu - Chi tổng hợp (A4 Landscape)
  * 15. Báo cáo Bán hàng theo nhân viên (A4 Portrait)
  * 16. Báo cáo Kiểm kê & Điều chỉnh kho (A4 Landscape)
@@ -1949,133 +1949,163 @@ export function buildFixedAssetsHtml({ year, notice, nextSteps = [], storeConfig
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 13. BÁO CÁO CÔNG NỢ (A4 LANDSCAPE)
+// 13. BÁO CÁO CÔNG NỢ NHÀ CUNG CẤP (A4 LANDSCAPE)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function buildDebtsHtml({ debts = [], customerDebts = [], supplierDebts = [], customers = [], suppliers = [], dateFrom, dateTo, storeConfig }) {
+function getDebtReceiptCode(d) {
+  if (!d) return "—";
+  const code = d.MaPhieuNhap || d.MaPNCode;
+  if (code && code !== "—") {
+    if (/^[0-9a-fA-F]{24}$/.test(String(code).trim())) return "Không xác định";
+    return String(code).trim();
+  }
+  if (d.MaPN) {
+    if (/^[0-9a-fA-F]{24}$/.test(String(d.MaPN).trim())) return "Không xác định";
+    return String(d.MaPN).trim();
+  }
+  return "—";
+}
+
+export function buildDebtsHtml({ debts = [], supplierDebts = [], suppliers = [], dateFrom, dateTo, storeConfig }) {
   const periodText = getPeriodString(dateFrom, dateTo);
 
-  const cList = customerDebts.length > 0
-    ? customerDebts
-    : debts.filter((d) => d.type === "customers" || !!d.MaKH || !d.MaNCC);
+  // Chỉ lấy công nợ nhà cung cấp, loại bỏ hoàn toàn công nợ khách hàng
+  const rawList = supplierDebts && supplierDebts.length > 0 ? supplierDebts : debts;
+  const sList = rawList.filter((d) => {
+    if (
+      d.LoaiCongNo === "Khách hàng" ||
+      d.type === "customers" ||
+      Boolean(d.MaKH) ||
+      Boolean(d.MaKHCode) ||
+      Boolean(d.MaHD) ||
+      Boolean(d.MaDH)
+    ) {
+      return false;
+    }
+    return (
+      d.LoaiCongNo === "Nhà cung cấp" ||
+      d.type === "suppliers" ||
+      Boolean(d.MaNCC) ||
+      Boolean(d.MaNCCCode) ||
+      Boolean(d.MaPN) ||
+      Boolean(d.MaPhieuNhap) ||
+      Boolean(d.MaDDH)
+    );
+  });
 
-  const sList = supplierDebts.length > 0
-    ? supplierDebts
-    : debts.filter((d) => d.type === "suppliers" || !!d.MaNCC);
+  let totalDauKy = 0;
+  let totalPhatSinhTang = 0;
+  let totalPhatSinhGiam = 0;
+  let totalCuoiKy = 0;
 
-  let totalCustDebt = 0;
-  const cRows = cList.map((d, idx) => {
-    const cust = customers.find((c) => c.id === d.MaKH || c.MaKH === d.MaKH);
-    const name = cust?.HoTen || d.partnerName || d.TenKH || d.MaKH || "Khách hàng";
-    const rem = Number(d.SoTienConLai ?? (d.SoTien - (d.SoTienDaTra || 0)) ?? 0);
-    const issueDate = formatDate(d.NgayPhatSinh || d.createdAt);
-    const dueDate = formatDate(d.HanThanhToan || d.NgayPhatSinh || d.createdAt);
-    totalCustDebt += rem;
-
-    return `
-      <tr>
-        <td class="center mono">${idx + 1}</td>
-        <td class="left">${esc(name)}</td>
-        <td class="right mono"><strong>${fmtMoney(rem)}</strong></td>
-        <td class="center mono">${issueDate}</td>
-        <td class="center mono">${dueDate}</td>
-        <td class="center">${rem <= 0 ? "Đã trả hết" : "Còn nợ"}</td>
-      </tr>
-    `;
-  }).join("");
-
-  let totalSuppDebt = 0;
   const sRows = sList.map((d, idx) => {
-    const supp = suppliers.find((s) => s.id === d.MaNCC || s.MaNCC === d.MaNCC);
-    const name = supp?.TenNCC || d.partnerName || d.TenNCC || d.MaNCC || "Nhà cung cấp";
-    const rem = Number(d.SoTienConLai ?? (d.SoTien - (d.SoTienDaTra || 0)) ?? 0);
+    const supp = suppliers.find(
+      (s) => s.id === d.MaNCC || s._id === d.MaNCC || s.MaNCC === d.MaNCC || (d.MaNCCCode && s.MaNCC === d.MaNCCCode)
+    );
+    const suppCode = supp?.MaNCC || d.MaNCCCode || (d.MaNCC && !/^[0-9a-fA-F]{24}$/.test(String(d.MaNCC)) ? String(d.MaNCC) : "—");
+    const suppName = supp?.TenNCC || d.TenNCC || d.partnerName || "Nhà cung cấp";
+    const suppPhone = supp?.SDT || supp?.DienThoai || supp?.phone || d.SDT || "—";
+
+    const docCode = getDebtReceiptCode(d);
+    const debtCode = d.MaCN || d.id || "—";
+    const docDisplay = docCode !== "—" && docCode !== "Không xác định" ? `${debtCode} (${docCode})` : debtCode;
     const issueDate = formatDate(d.NgayPhatSinh || d.createdAt);
-    const dueDate = formatDate(d.HanThanhToan || d.NgayPhatSinh || d.createdAt);
-    totalSuppDebt += rem;
+
+    const dauKy = Number(d.DuNoDauKy || 0);
+    const phatSinhTang = Number(d.SoTien || 0);
+    const phatSinhGiam = Number(d.SoTienDaTra || 0);
+    const cuoiKy = Number(d.SoTienConLai ?? (phatSinhTang - phatSinhGiam));
+    const isPaid = cuoiKy <= 0;
+
+    totalDauKy += dauKy;
+    totalPhatSinhTang += phatSinhTang;
+    totalPhatSinhGiam += phatSinhGiam;
+    totalCuoiKy += cuoiKy;
 
     return `
       <tr>
         <td class="center mono">${idx + 1}</td>
-        <td class="left">${esc(name)}</td>
-        <td class="right mono"><strong>${fmtMoney(rem)}</strong></td>
+        <td class="center mono"><strong>${esc(suppCode)}</strong></td>
+        <td class="left"><strong>${esc(suppName)}</strong></td>
+        <td class="center mono">${esc(suppPhone)}</td>
+        <td class="center mono">${esc(docDisplay)}</td>
         <td class="center mono">${issueDate}</td>
-        <td class="center mono">${dueDate}</td>
-        <td class="center">${rem <= 0 ? "Đã trả hết" : "Còn nợ"}</td>
+        <td class="right mono">${dauKy ? fmtMoney(dauKy) : "0"}</td>
+        <td class="right mono">${fmtMoney(phatSinhTang)}</td>
+        <td class="right mono">${fmtMoney(phatSinhGiam)}</td>
+        <td class="right mono" style="font-weight: bold; color: ${isPaid ? '#000000' : '#b91c1c'}">${fmtMoney(cuoiKy)}</td>
+        <td class="center">${isPaid ? "Đã thanh toán" : "Còn nợ"}</td>
       </tr>
     `;
   }).join("");
 
   const bodyHtml = `
     ${accountingHeader({
-      title: "BÁO CÁO CÔNG NỢ CHI TIẾT",
+      title: "BÁO CÁO CÔNG NỢ PHẢI TRẢ NHÀ CUNG CẤP",
       subTitle: periodText,
-      formNo: "SỔ THEO DÕI CÔNG NỢ",
-      standardText: "Theo chế độ Kế toán Doanh nghiệp Việt Nam",
+      formNo: "Mẫu số S31-DN",
+      standardText: "Ban hành theo Thông tư 200/2014/TT-BTC & TT 133/2016/TT-BTC của BTC",
       extraRight: "<div>Đơn vị tính: VNĐ</div>",
     })}
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 6px 12px; border: 1px solid #000; font-size: 10.5pt;">
-      <div><strong>Tổng công nợ phải thu (KH):</strong> <span class="mono" style="font-weight: bold;">${fmtMoney(totalCustDebt)} đ</span></div>
-      <div><strong>Tổng công nợ phải trả (NCC):</strong> <span class="mono" style="font-weight: bold;">${fmtMoney(totalSuppDebt)} đ</span></div>
-      <div><strong>Chênh lệch công nợ:</strong> <span class="mono" style="font-weight: bold;">${fmtMoney(totalCustDebt - totalSuppDebt)} đ</span></div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; padding: 10px 14px; border: 1.5px solid #000; background: #fafafa; font-size: 10pt;">
+      <div>
+        <div style="font-size: 9pt; color: #444; text-transform: uppercase;">Dư nợ đầu kỳ:</div>
+        <div class="mono" style="font-size: 11pt; font-weight: bold; margin-top: 2px;">${fmtMoney(totalDauKy)} đ</div>
+      </div>
+      <div>
+        <div style="font-size: 9pt; color: #444; text-transform: uppercase;">Phát sinh tăng (Nhập hàng):</div>
+        <div class="mono" style="font-size: 11pt; font-weight: bold; margin-top: 2px;">${fmtMoney(totalPhatSinhTang)} đ</div>
+      </div>
+      <div>
+        <div style="font-size: 9pt; color: #444; text-transform: uppercase;">Phát sinh giảm (Đã trả):</div>
+        <div class="mono" style="font-size: 11pt; font-weight: bold; margin-top: 2px;">${fmtMoney(totalPhatSinhGiam)} đ</div>
+      </div>
+      <div>
+        <div style="font-size: 9pt; color: #444; text-transform: uppercase;">Tổng nợ phải trả NCC (Cuối kỳ):</div>
+        <div class="mono" style="font-size: 12pt; font-weight: bold; margin-top: 2px; color: #b91c1c;">${fmtMoney(totalCuoiKy)} đ</div>
+      </div>
     </div>
 
-    <div class="flex-2col">
-      <div class="col-half">
-        <div class="sec-title">I. CÔNG NỢ PHẢI THU (Khách hàng)</div>
-        <table class="rpt-table">
-          <thead>
-            <tr>
-              <th style="width: 8%">STT</th>
-              <th style="width: 32%">Khách hàng</th>
-              <th style="width: 22%">Số tiền nợ</th>
-              <th style="width: 19%">Ngày lập</th>
-              <th style="width: 19%">Hạn trả</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${cRows || `<tr><td colspan="5" class="center" style="padding:12px; font-style:italic">Không có công nợ phải thu</td></tr>`}
-          </tbody>
-          <tfoot>
-            <tr class="rpt-total-row">
-              <td colspan="2" class="center">Tổng phải thu:</td>
-              <td class="right mono">${fmtMoney(totalCustDebt)}</td>
-              <td colspan="2"></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+    <table class="rpt-table">
+      <thead>
+        <tr>
+          <th style="width: 4%">STT</th>
+          <th style="width: 8%">Mã NCC</th>
+          <th style="width: 19%">Tên nhà cung cấp</th>
+          <th style="width: 9%">Số điện thoại</th>
+          <th style="width: 12%">Mã chứng từ / PN</th>
+          <th style="width: 8%">Ngày lập</th>
+          <th style="width: 8%" class="right">Dư nợ đầu kỳ</th>
+          <th style="width: 9%" class="right">Phát sinh tăng<br><small style="font-weight:normal">(Tiền nhập)</small></th>
+          <th style="width: 9%" class="right">Phát sinh giảm<br><small style="font-weight:normal">(Đã trả)</small></th>
+          <th style="width: 9%" class="right">Công nợ cuối kỳ<br><small style="font-weight:normal">(Còn phải trả)</small></th>
+          <th style="width: 6%" class="center">Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${sRows || `<tr><td colspan="11" class="center" style="padding:16px; font-style:italic">Không có dữ liệu công nợ nhà cung cấp</td></tr>`}
+      </tbody>
+      <tfoot>
+        <tr class="rpt-total-row">
+          <td colspan="6" class="center" style="font-weight: bold; text-transform: uppercase;">Tổng cộng:</td>
+          <td class="right mono">${fmtMoney(totalDauKy)}</td>
+          <td class="right mono">${fmtMoney(totalPhatSinhTang)}</td>
+          <td class="right mono">${fmtMoney(totalPhatSinhGiam)}</td>
+          <td class="right mono" style="font-weight: bold;">${fmtMoney(totalCuoiKy)}</td>
+          <td class="center"></td>
+        </tr>
+      </tfoot>
+    </table>
 
-      <div class="col-half">
-        <div class="sec-title">II. CÔNG NỢ PHẢI TRẢ (Nhà cung cấp)</div>
-        <table class="rpt-table">
-          <thead>
-            <tr>
-              <th style="width: 8%">STT</th>
-              <th style="width: 32%">Nhà cung cấp</th>
-              <th style="width: 22%">Số tiền nợ</th>
-              <th style="width: 19%">Ngày lập</th>
-              <th style="width: 19%">Hạn trả</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${sRows || `<tr><td colspan="5" class="center" style="padding:12px; font-style:italic">Không có công nợ phải trả</td></tr>`}
-          </tbody>
-          <tfoot>
-            <tr class="rpt-total-row">
-              <td colspan="2" class="center">Tổng phải trả:</td>
-              <td class="right mono">${fmtMoney(totalSuppDebt)}</td>
-              <td colspan="2"></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+    <div class="words-footnote">
+      * Số tiền bằng chữ (Tổng công nợ phải trả NCC): <strong>${esc(amountToWords(totalCuoiKy))}</strong>
     </div>
 
     ${sigRow3Legal({ user: getCurrentUser(), firstRole: "Người lập biểu", thirdRole: "Giám đốc" })}
   `;
 
-  return wrapPage(bodyHtml, true, "Báo cáo Công Nợ - Cửa hàng Mẹ & Bé");
+  return wrapPage(bodyHtml, true, "Báo cáo Công Nợ Nhà Cung Cấp - Cửa hàng Mẹ & Bé");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

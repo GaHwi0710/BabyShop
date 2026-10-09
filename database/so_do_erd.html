@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sơ Đồ ERD MongoDB - Baby Shop Management</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 12px;
+      background: var(--background, #0f172a);
+      color: var(--foreground, #f8fafc);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+    .badge-pk { background: #ef444422; color: #f87171; border: 1px solid #ef444455; }
+    .badge-fk { background: #3b82f622; color: #60a5fa; border: 1px solid #3b82f655; }
+    .badge-uk { background: #10b98122; color: #34d399; border: 1px solid #10b98155; }
+    .badge-dt { background: #8b5cf622; color: #c084fc; border: 1px solid #8b5cf655; }
+  </style>
+</head>
+<body class="custom-scrollbar">
+  <div class="max-w-7xl mx-auto space-y-4">
+    <!-- Header -->
+    <header class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="p-2.5 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xl">🗄️</span>
+          <div>
+            <h1 class="text-xl font-bold tracking-tight text-[var(--foreground,#f8fafc)]">
+              SƠ ĐỒ THỰC THỂ LIÊN KẾT (ERD) - CƠ SỞ DỮ LIỆU MONGODB
+            </h1>
+            <p class="text-xs text-[var(--muted-foreground,#94a3b8)] mt-0.5">
+              Hệ thống Quản lý Cửa hàng Mẹ & Bé • Toàn vẹn 31 Collections thực tế • Dual-Storage Pattern
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap text-xs">
+        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-medium">
+          ● 31 Collections
+        </span>
+        <span class="px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/30 font-medium">
+          ● 7 Phân Hệ
+        </span>
+        <span class="px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/30 font-medium">
+          ● Khóa Ngoại Logic Code
+        </span>
+      </div>
+    </header>
+
+    <!-- Toolbar: Search & Filter Tabs -->
+    <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-4 shadow-md space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="relative flex-1 min-w-[260px]">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="🔍 Tìm kiếm Collection, trường khóa chính/ngoại (vd: SanPham, MaSP, MaHD, Users)..."
+            class="w-full px-4 py-2.5 text-xs rounded-xl bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-500 placeholder-[var(--muted-foreground,#64748b)] transition"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="viewToggleBtn" onclick="toggleViewMode()" class="px-3.5 py-2 text-xs font-semibold rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-sm">
+            <span>🔄 Xem Sơ Đồ Khung Quan Hệ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module Filters -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs" id="filterContainer">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- View Mode 1: Cards View with Schema Detail -->
+    <div id="cardsView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Injected via JS -->
+    </div>
+
+    <!-- View Mode 2: Interactive Relationships Flow Canvas -->
+    <div id="flowView" class="hidden bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-6 shadow-md space-y-4">
+      <div class="flex items-center justify-between border-b border-[var(--border,#334155)] pb-3">
+        <div>
+          <h2 class="text-sm font-bold text-[var(--foreground,#f8fafc)]">LUỒNG LIÊN KẾT GIỮA 7 PHÂN HỆ VÀ 31 BẢNG</h2>
+          <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Mối quan hệ 1-N (One-to-Many), 1-1 (One-to-One) và Dual Storage (Nhúng + Chi tiết rời)</p>
+        </div>
+        <span class="text-xs px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-md">
+          Chỉ mục tự động: ObjectId + Business Code (Unique)
+        </span>
+      </div>
+
+      <!-- Flow SVG Canvas -->
+      <div class="overflow-x-auto custom-scrollbar p-2">
+        <svg viewBox="0 0 1350 820" class="w-full min-w-[1000px] h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+            </marker>
+            <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+            </marker>
+            <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+            </marker>
+            <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc" />
+            </marker>
+            <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24" />
+            </marker>
+          </defs>
+
+          <!-- Module 1: Người dùng & Vai trò (Top-Left) -->
+          <g transform="translate(30, 30)">
+            <rect width="260" height="210" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#60a5fa" font-size="12" font-weight="bold">1. NGƯỜI DÙNG & HỆ THỐNG</text>
+            
+            <!-- Users Box -->
+            <rect x="15" y="40" width="105" height="55" rx="6" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+            <text x="25" y="62" fill="#f8fafc" font-size="12" font-weight="bold">Users</text>
+            <text x="25" y="80" fill="#94a3b8" font-size="10">PK: _id | User</text>
+
+            <!-- VaiTro Box -->
+            <rect x="135" y="40" width="110" height="55" rx="6" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+            <text x="145" y="62" fill="#f8fafc" font-size="12" font-weight="bold">VaiTro</text>
+            <text x="145" y="80" fill="#94a3b8" font-size="10">PK: MaVaiTro (1-5)</text>
+
+            <!-- NhanVien Box -->
+            <rect x="75" y="125" width="115" height="65" rx="6" fill="#0f172a" stroke="#60a5fa" stroke-width="1.5" />
+            <text x="85" y="148" fill="#f8fafc" font-size="12" font-weight="bold">NhanVien</text>
+            <text x="85" y="165" fill="#94a3b8" font-size="10">PK: MaNV</text>
+            <text x="85" y="180" fill="#60a5fa" font-size="9">FK: MaVaiTro, Users</text>
+
+            <line x1="65" y1="95" x2="110" y2="125" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)" />
+            <line x1="190" y1="95" x2="150" y2="125" stroke="#64748b" stroke-width="1.2" marker-end="url(#arrow)" />
+          </g>
+
+          <!-- Module 2: Đối tác & Hàng hóa (Middle-Left) -->
+          <g transform="translate(30, 270)">
+            <rect width="260" height="270" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#34d399" font-size="12" font-weight="bold">2. DANH MỤC & HÀNG HÓA</text>
+
+            <!-- LoaiHang -->
+            <rect x="15" y="40" width="110" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="25" y="62" fill="#f8fafc" font-size="12" font-weight="bold">LoaiHang</text>
+            <text x="25" y="80" fill="#94a3b8" font-size="10">PK: MaLoai</text>
+
+            <!-- SanPham -->
+            <rect x="140" y="40" width="105" height="70" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+            <text x="150" y="62" fill="#f8fafc" font-size="12" font-weight="bold">SanPham</text>
+            <text x="150" y="78" fill="#94a3b8" font-size="10">PK: MaSP, _id</text>
+            <text x="150" y="93" fill="#34d399" font-size="9">FK: MaLoai</text>
+
+            <line x1="125" y1="67" x2="140" y2="67" stroke="#10b981" stroke-width="1.2" marker-end="url(#arrow-green)" />
+
+            <!-- TonKho -->
+            <rect x="140" y="135" width="105" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="150" y="157" fill="#f8fafc" font-size="12" font-weight="bold">TonKho</text>
+            <text x="150" y="174" fill="#34d399" font-size="9">1-1: MaSP</text>
+
+            <line x1="192" y1="110" x2="192" y2="135" stroke="#10b981" stroke-width="1.2" marker-end="url(#arrow-green)" />
+
+            <!-- KhachHang & NhaCungCap -->
+            <rect x="15" y="200" width="110" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="25" y="222" fill="#f8fafc" font-size="12" font-weight="bold">KhachHang</text>
+            <text x="25" y="240" fill="#94a3b8" font-size="10">PK: MaKH</text>
+
+            <rect x="135" y="200" width="110" height="55" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="145" y="222" fill="#f8fafc" font-size="12" font-weight="bold">NhaCungCap</text>
+            <text x="145" y="240" fill="#94a3b8" font-size="10">PK: MaNCC</text>
+          </g>
+
+          <!-- Module 3: Nghiệp vụ Mua Hàng (Center-Top) -->
+          <g transform="translate(340, 30)">
+            <rect width="320" height="230" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#fbbf24" font-size="12" font-weight="bold">3. MUA HÀNG & NHẬP KHO</text>
+
+            <!-- DonDatHang -->
+            <rect x="20" y="45" width="125" height="65" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1" />
+            <text x="30" y="68" fill="#f8fafc" font-size="12" font-weight="bold">DonDatHang</text>
+            <text x="30" y="86" fill="#94a3b8" font-size="10">PK: MaDDH</text>
+            <text x="30" y="100" fill="#fbbf24" font-size="9">FK: MaNCC, MaNV</text>
+
+            <!-- CT_DonDatHang -->
+            <rect x="175" y="45" width="125" height="65" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="185" y="68" fill="#f8fafc" font-size="12" font-weight="bold">CT_DonDatHang</text>
+            <text x="185" y="86" fill="#c084fc" font-size="10">PK: MaDDH+MaSP</text>
+            <text x="185" y="100" fill="#94a3b8" font-size="9">Dual Storage Item</text>
+
+            <line x1="145" y1="77" x2="175" y2="77" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+
+            <!-- PhieuNhap -->
+            <rect x="20" y="140" width="125" height="70" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" />
+            <text x="30" y="163" fill="#f8fafc" font-size="12" font-weight="bold">PhieuNhap</text>
+            <text x="30" y="180" fill="#94a3b8" font-size="10">PK: MaPN (01-VT)</text>
+            <text x="30" y="195" fill="#fbbf24" font-size="9">FK: MaDDH, MaNCC</text>
+
+            <line x1="82" y1="110" x2="82" y2="140" stroke="#f59e0b" stroke-width="1.2" marker-end="url(#arrow-amber)" />
+
+            <!-- CT_PhieuNhap -->
+            <rect x="175" y="140" width="125" height="70" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="185" y="163" fill="#f8fafc" font-size="12" font-weight="bold">CT_PhieuNhap</text>
+            <text x="185" y="180" fill="#c084fc" font-size="10">PK: MaPN+MaSP</text>
+            <text x="185" y="195" fill="#94a3b8" font-size="9">Tăng Thẻ Kho</text>
+
+            <line x1="145" y1="175" x2="175" y2="175" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+          </g>
+
+          <!-- Module 4: Nghiệp vụ Bán Hàng & Hóa Đơn (Center-Bottom) -->
+          <g transform="translate(340, 290)">
+            <rect width="320" height="340" rx="12" fill="#1e293b" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#f472b6" font-size="12" font-weight="bold">4. BÁN HÀNG & XUẤT KHO</text>
+
+            <!-- DonHang -->
+            <rect x="20" y="45" width="125" height="65" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1" />
+            <text x="30" y="68" fill="#f8fafc" font-size="12" font-weight="bold">DonHang (POS)</text>
+            <text x="30" y="86" fill="#94a3b8" font-size="10">PK: MaDH</text>
+            <text x="30" y="100" fill="#f472b6" font-size="9">FK: MaKH, MaNV</text>
+
+            <!-- CT_DonHang -->
+            <rect x="175" y="45" width="125" height="65" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="185" y="68" fill="#f8fafc" font-size="12" font-weight="bold">CT_DonHang</text>
+            <text x="185" y="86" fill="#c084fc" font-size="10">PK: MaDH+MaSP</text>
+            <text x="185" y="100" fill="#94a3b8" font-size="9">Dual Storage Item</text>
+
+            <line x1="145" y1="77" x2="175" y2="77" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+
+            <!-- HoaDon -->
+            <rect x="20" y="145" width="125" height="70" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1.5" />
+            <text x="30" y="168" fill="#f8fafc" font-size="12" font-weight="bold">HoaDon</text>
+            <text x="30" y="185" fill="#94a3b8" font-size="10">PK: MaHD</text>
+            <text x="30" y="200" fill="#f472b6" font-size="9">1-1: MaDH, MaKH</text>
+
+            <line x1="82" y1="110" x2="82" y2="145" stroke="#ec4899" stroke-width="1.2" marker-end="url(#arrow)" />
+
+            <!-- CT_HoaDon -->
+            <rect x="175" y="145" width="125" height="70" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="185" y="168" fill="#f8fafc" font-size="12" font-weight="bold">CT_HoaDon</text>
+            <text x="185" y="185" fill="#c084fc" font-size="10">PK: MaHD+MaSP</text>
+            <text x="185" y="200" fill="#94a3b8" font-size="9">Đối soát doanh thu</text>
+
+            <line x1="145" y1="180" x2="175" y2="180" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+
+            <!-- PhieuXuat -->
+            <rect x="20" y="250" width="125" height="65" rx="6" fill="#0f172a" stroke="#ec4899" stroke-width="1" />
+            <text x="30" y="273" fill="#f8fafc" font-size="12" font-weight="bold">PhieuXuat</text>
+            <text x="30" y="290" fill="#94a3b8" font-size="10">PK: MaPX (02-VT)</text>
+            <text x="30" y="304" fill="#f472b6" font-size="9">FK: MaDH, MaNV</text>
+
+            <line x1="45" y1="110" x2="45" y2="250" stroke="#ec4899" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow)" />
+
+            <!-- CT_PhieuXuat -->
+            <rect x="175" y="250" width="125" height="65" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="185" y="273" fill="#f8fafc" font-size="12" font-weight="bold">CT_PhieuXuat</text>
+            <text x="185" y="290" fill="#c084fc" font-size="10">PK: MaPX+MaSP</text>
+            <text x="185" y="304" fill="#94a3b8" font-size="9">Trừ Thẻ Kho</text>
+
+            <line x1="145" y1="282" x2="175" y2="282" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+          </g>
+
+          <!-- Module 5: Kho Vận, Kiểm Kê & Đổi Trả (Right-Top) -->
+          <g transform="translate(710, 30)">
+            <rect width="300" height="340" rx="12" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#22d3ee" font-size="12" font-weight="bold">5. KIỂM KÊ & ĐỔI TRẢ</text>
+
+            <!-- KiemKe -->
+            <rect x="20" y="45" width="115" height="60" rx="6" fill="#0f172a" stroke="#06b6d4" stroke-width="1" />
+            <text x="30" y="68" fill="#f8fafc" font-size="12" font-weight="bold">KiemKe</text>
+            <text x="30" y="86" fill="#94a3b8" font-size="10">PK: MaKK</text>
+            <text x="30" y="99" fill="#22d3ee" font-size="9">Thủ kho thực hiện</text>
+
+            <!-- CT_KiemKe -->
+            <rect x="160" y="45" width="120" height="60" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="170" y="68" fill="#f8fafc" font-size="12" font-weight="bold">CT_KiemKe</text>
+            <text x="170" y="86" fill="#c084fc" font-size="10">PK: MaKK+MaSP</text>
+            <text x="170" y="99" fill="#94a3b8" font-size="9">ChenhLech (Thừa/Thiếu)</text>
+
+            <line x1="135" y1="75" x2="160" y2="75" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+
+            <!-- DieuChinhKho -->
+            <rect x="20" y="135" width="115" height="60" rx="6" fill="#0f172a" stroke="#06b6d4" stroke-width="1" />
+            <text x="30" y="158" fill="#f8fafc" font-size="12" font-weight="bold">DieuChinhKho</text>
+            <text x="30" y="176" fill="#94a3b8" font-size="10">PK: MaDC</text>
+            <text x="30" y="189" fill="#22d3ee" font-size="9">FK: MaKK</text>
+
+            <line x1="77" y1="105" x2="77" y2="135" stroke="#06b6d4" stroke-width="1.2" marker-end="url(#arrow)" />
+
+            <!-- PhieuTraHang -->
+            <rect x="20" y="225" width="115" height="70" rx="6" fill="#0f172a" stroke="#06b6d4" stroke-width="1.5" />
+            <text x="30" y="248" fill="#f8fafc" font-size="12" font-weight="bold">PhieuTraHang</text>
+            <text x="30" y="265" fill="#94a3b8" font-size="10">PK: MaPTH</text>
+            <text x="30" y="280" fill="#22d3ee" font-size="9">FK: MaDH, MaHD</text>
+
+            <!-- CT_PhieuTraHang -->
+            <rect x="160" y="225" width="120" height="70" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="170" y="248" fill="#f8fafc" font-size="12" font-weight="bold">CT_PhieuTraHang</text>
+            <text x="170" y="265" fill="#c084fc" font-size="10">PK: MaPTH+MaSP</text>
+            <text x="170" y="280" fill="#94a3b8" font-size="9">Nhập lại kho</text>
+
+            <line x1="135" y1="260" x2="160" y2="260" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+          </g>
+
+          <!-- Module 6: Tài Chính, Quỹ & Công Nợ (Right-Bottom) -->
+          <g transform="translate(710, 400)">
+            <rect width="300" height="230" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#34d399" font-size="12" font-weight="bold">6. TÀI CHÍNH, QUỸ & CÔNG NỢ</text>
+
+            <!-- PhieuThu -->
+            <rect x="20" y="45" width="115" height="60" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="30" y="68" fill="#f8fafc" font-size="12" font-weight="bold">PhieuThu</text>
+            <text x="30" y="86" fill="#94a3b8" font-size="10">PK: MaPT (01-TT)</text>
+            <text x="30" y="99" fill="#34d399" font-size="9">Ref: HDxxx, CNxxx</text>
+
+            <!-- PhieuChi -->
+            <rect x="160" y="45" width="115" height="60" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="170" y="68" fill="#f8fafc" font-size="12" font-weight="bold">PhieuChi</text>
+            <text x="170" y="86" fill="#94a3b8" font-size="10">PK: MaPC (02-TT)</text>
+            <text x="170" y="99" fill="#34d399" font-size="9">Ref: PNxxx, NCC</text>
+
+            <!-- ThanhToan -->
+            <rect x="20" y="135" width="115" height="65" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="30" y="158" fill="#f8fafc" font-size="12" font-weight="bold">ThanhToan</text>
+            <text x="30" y="176" fill="#94a3b8" font-size="10">PK: MaTT</text>
+            <text x="30" y="190" fill="#34d399" font-size="9">FK: MaHD</text>
+
+            <!-- CongNo -->
+            <rect x="160" y="135" width="115" height="65" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+            <text x="170" y="158" fill="#f8fafc" font-size="12" font-weight="bold">CongNo</text>
+            <text x="170" y="176" fill="#94a3b8" font-size="10">PK: MaCN</text>
+            <text x="170" y="190" fill="#34d399" font-size="9">2 chiều: PN / HD</text>
+          </g>
+
+          <!-- Module 7: Khuyến Mãi & Hỗ Trợ Hệ Thống (Far-Right) -->
+          <g transform="translate(1050, 30)">
+            <rect width="270" height="420" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="14" y="24" fill="#a78bfa" font-size="12" font-weight="bold">7. KHUYẾN MÃI & QUẢN TRỊ</text>
+
+            <!-- KhuyenMai -->
+            <rect x="20" y="45" width="105" height="65" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-width="1" />
+            <text x="30" y="68" fill="#f8fafc" font-size="12" font-weight="bold">KhuyenMai</text>
+            <text x="30" y="86" fill="#94a3b8" font-size="10">PK: MaKM</text>
+            <text x="30" y="100" fill="#a78bfa" font-size="9">Voucher, % giảm</text>
+
+            <!-- CT_KhuyenMai -->
+            <rect x="145" y="45" width="105" height="65" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+            <text x="155" y="68" fill="#f8fafc" font-size="12" font-weight="bold">CT_KhuyenMai</text>
+            <text x="155" y="86" fill="#c084fc" font-size="10">PK: MaKM+MaSP</text>
+            <text x="155" y="100" fill="#94a3b8" font-size="9">SP áp dụng</text>
+
+            <line x1="125" y1="77" x2="145" y2="77" stroke="#a855f7" stroke-width="1.2" marker-end="url(#arrow-purple)" />
+
+            <!-- Counters -->
+            <rect x="20" y="145" width="230" height="65" rx="6" fill="#0f172a" stroke="#8b5cf6" stroke-width="1" />
+            <text x="30" y="168" fill="#f8fafc" font-size="12" font-weight="bold">Counters</text>
+            <text x="30" y="186" fill="#94a3b8" font-size="10">PK: _id (HD, SP, KH, PN, PC...)</text>
+            <text x="30" y="200" fill="#a78bfa" font-size="9">seq: Number (Atomic $inc sinh mã duy nhất)</text>
+
+            <!-- AuditLogs -->
+            <rect x="20" y="240" width="230" height="75" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+            <text x="30" y="263" fill="#f8fafc" font-size="12" font-weight="bold">AuditLogs</text>
+            <text x="30" y="280" fill="#94a3b8" font-size="10">PK: _id, timestamp (Index)</text>
+            <text x="30" y="295" fill="#f87171" font-size="9">Ghi vết: Login, CRUD, Backup, Restore</text>
+
+            <!-- Metadata -->
+            <rect x="20" y="340" width="230" height="60" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1" />
+            <text x="30" y="363" fill="#cbd5e1" font-size="12" font-weight="bold">_metadata (Internal)</text>
+            <text x="30" y="380" fill="#64748b" font-size="10">Collection kỹ thuật lưu migration flag</text>
+          </g>
+
+          <!-- Cross-Module Connections -->
+          <!-- SanPham to DonDatHang details, PhieuNhap details, DonHang details -->
+          <path d="M 245 320 C 310 320, 310 100, 340 100" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="3 3" />
+          <path d="M 245 330 C 310 330, 310 365, 340 365" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="3 3" />
+
+          <!-- HoaDon to PhieuThu, CongNo -->
+          <path d="M 465 470 C 580 470, 580 470, 710 470" fill="none" stroke="#10b981" stroke-width="1.4" marker-end="url(#arrow-green)" />
+          <!-- PhieuNhap to PhieuChi, CongNo -->
+          <path d="M 465 210 C 580 210, 580 470, 710 470" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="4 2" marker-end="url(#arrow-amber)" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Collection Details Modal -->
+    <div id="detailModal" class="fixed inset-0 bg-black/75 z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+        <div class="p-5 border-b border-[var(--border,#334155)] flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-blue-500/10 text-blue-400 font-bold text-sm" id="modalPrefix">COL</span>
+            <div>
+              <h3 class="text-base font-bold text-[var(--foreground,#f8fafc)]" id="modalTitle">Collection Details</h3>
+              <p class="text-xs text-[var(--muted-foreground,#94a3b8)]" id="modalDesc"></p>
+            </div>
+          </div>
+          <button onclick="closeModal()" class="text-[var(--muted-foreground,#94a3b8)] hover:text-white text-lg p-1">✕</button>
+        </div>
+        <div class="p-5 overflow-y-auto custom-scrollbar flex-1 space-y-4">
+          <div class="border border-[var(--border,#334155)] rounded-xl overflow-hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-[var(--background,#0f172a)] text-[var(--muted-foreground,#94a3b8)] border-b border-[var(--border,#334155)]">
+                  <th class="p-2.5 font-semibold">Tên Trường</th>
+                  <th class="p-2.5 font-semibold">Kiểu</th>
+                  <th class="p-2.5 font-semibold">Ràng Buộc / Khóa</th>
+                  <th class="p-2.5 font-semibold">Mô Tả Nghiệp Vụ</th>
+                </tr>
+              </thead>
+              <tbody id="modalFieldsTable">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="p-4 border-t border-[var(--border,#334155)] flex justify-end">
+          <button onclick="closeModal()" class="px-4 py-2 text-xs font-semibold rounded-xl bg-slate-700 hover:bg-slate-600 text-white transition">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MODULES = [
+      { id: "all", name: "Tất Cả (31)" },
+      { id: "m1", name: "1. Người Dùng & Vai Trò (3)" },
+      { id: "m2", name: "2. Đối Tác & Hàng Hóa (5)" },
+      { id: "m3", name: "3. Mua Hàng & Nhập Kho (4)" },
+      { id: "m4", name: "4. Bán Hàng & Hóa Đơn (6)" },
+      { id: "m5", name: "5. Kiểm Kê & Đổi Trả (5)" },
+      { id: "m6", name: "6. Quỹ Tiền Mặt & Công Nợ (4)" },
+      { id: "m7", name: "7. Khuyến Mãi & Hệ Thống (4)" },
+    ];
+
+    const COLLECTIONS = [
+      // M1
+      {
+        moduleId: "m1", name: "Users", desc: "Tài khoản đăng nhập, băm mật khẩu scrypt + Salt 16B", pk: "_id",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh MongoDB"],
+          ["username", "String", "Unique, Bắt buộc", "Tên đăng nhập"],
+          ["passwordHash", "String", "Bắt buộc", "Băm scrypt + Salt 16B"],
+          ["fullName", "String", "Bắt buộc", "Họ tên người dùng"],
+          ["role", "String", "Bắt buộc", "Vai trò (QuanLy, NhanVien...)"],
+          ["status", "String", "Bắt buộc", "Hoạt động / Đã khóa"],
+          ["email", "String", "Tùy chọn", "Email liên hệ"],
+          ["phone", "String", "Tùy chọn", "Số điện thoại"],
+          ["CCCD", "String", "12 số", "Căn cước công dân"]
+        ]
+      },
+      {
+        moduleId: "m1", name: "VaiTro", desc: "Quản lý 5 vai trò chuẩn và ma trận phân quyền 24 phân hệ", pk: "MaVaiTro",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaVaiTro", "Number", "Unique (1-5)", "Mã định danh vai trò"],
+          ["TenVaiTro", "String", "Bắt buộc", "Tên hiển thị"],
+          ["MaKey", "String", "Unique", "Mã khóa (QuanLy, KeToan...)"],
+          ["LaVaiTroHeThong", "Boolean", "Bắt buộc", "Vai trò hệ thống"],
+          ["QuyenHan", "Object", "Bắt buộc", "Ma trận xem/tạo/sửa/xóa"]
+        ]
+      },
+      {
+        moduleId: "m1", name: "NhanVien", desc: "Hồ sơ nhân viên liên kết với User và VaiTro", pk: "MaNV",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaNV", "String", "Unique (NVxxx)", "Mã nhân viên"],
+          ["HoTen", "String", "Bắt buộc", "Họ tên nhân viên"],
+          ["ChucVu", "String", "Tùy chọn", "Chức vụ công tác"],
+          ["PhongBan", "String", "Tùy chọn", "Phòng ban"],
+          ["username", "String", "FK (Users)", "Tài khoản đăng nhập liên kết"],
+          ["MaVaiTro", "Number", "FK (VaiTro)", "Mã vai trò phân công"]
+        ]
+      },
+      // M2
+      {
+        moduleId: "m2", name: "KhachHang", desc: "Khách hàng mua hàng, điểm thưởng & hạng thành viên", pk: "MaKH",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaKH", "String", "Unique (KHxxx)", "Mã khách hàng"],
+          ["HoTen", "String", "Bắt buộc", "Họ tên khách"],
+          ["SDT", "String", "Unique, 10-11 số", "Số điện thoại"],
+          ["DiemTichLuy", "Number", "Mặc định 0", "10.000đ = 1 điểm"],
+          ["CapThanhVien", "String", "Tự động tính", "Đồng, Bạc, Vàng, Kim Cương"]
+        ]
+      },
+      {
+        moduleId: "m2", name: "NhaCungCap", desc: "Đối tác nhà cung cấp hàng hóa cho mẹ và bé", pk: "MaNCC",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaNCC", "String", "Unique (NCCxxx)", "Mã nhà cung cấp"],
+          ["TenNCC", "String", "Bắt buộc", "Tên nhà cung cấp"],
+          ["SDT", "String", "Bắt buộc", "Số điện thoại"],
+          ["DiaChi", "String", "Tùy chọn", "Địa chỉ giao dịch"],
+          ["MaSoThue", "String", "Tùy chọn", "Mã số thuế doanh nghiệp"]
+        ]
+      },
+      {
+        moduleId: "m2", name: "LoaiHang", desc: "Danh mục ngành hàng (Sữa bột, Bỉm tã, Quần áo sơ sinh...)", pk: "MaLoai",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaLoai", "String", "Unique (LHxxx)", "Mã phân loại hàng"],
+          ["TenLoai", "String", "Bắt buộc", "Tên loại hàng"],
+          ["MoTa", "String", "Tùy chọn", "Mô tả đặc điểm"]
+        ]
+      },
+      {
+        moduleId: "m2", name: "SanPham", desc: "Sản phẩm kinh doanh, giá vốn/bán, HSD và ảnh Base64", pk: "MaSP",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaSP", "String", "Unique (SPxxx)", "Mã sản phẩm"],
+          ["TenSP", "String", "Bắt buộc", "Tên sản phẩm"],
+          ["MaLoai", "String/ObjectId", "FK (LoaiHang)", "Mã loại hàng"],
+          ["DonViTinh", "String", "Bắt buộc", "Đơn vị tính (Hộp, Gói, Lon...)"],
+          ["GiaNhap", "Number", "> 0", "Giá vốn nhập"],
+          ["GiaBan", "Number", "> 0", "Giá bán niêm yết"],
+          ["HanSuDung", "String", "YYYY-MM-DD", "Hạn sử dụng lô hàng"],
+          ["stock", "Number", "Mặc định 0", "Tồn kho khả dụng"]
+        ]
+      },
+      {
+        moduleId: "m2", name: "TonKho", desc: "Sổ theo dõi tồn kho độc lập theo mặt hàng (quan hệ 1-1)", pk: "MaSP",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaSP", "ObjectId", "Unique, FK (SanPham)", "Mã định danh sản phẩm"],
+          ["SoLuongTon", "Number", ">= 0", "Số lượng tồn kho"],
+          ["NgayCapNhat", "String", "YYYY-MM-DD", "Ngày cập nhật gần nhất"]
+        ]
+      },
+      // M3
+      {
+        moduleId: "m3", name: "DonDatHang", desc: "Đơn đặt mua hàng (PO) gửi nhà cung cấp", pk: "MaDDH",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaDDH", "String", "Unique (DDHxxx)", "Mã đơn đặt hàng"],
+          ["MaNCC", "String/ObjectId", "FK (NhaCungCap)", "Nhà cung cấp"],
+          ["MaNV", "String/ObjectId", "FK (NhanVien)", "Nhân viên lập đơn"],
+          ["TongTien", "Number", ">= 0", "Tổng giá trị đơn đặt"],
+          ["TrangThai", "String", "Enum", "Chờ duyệt, Đang giao, Hoàn thành, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m3", name: "CT_DonDatHang", desc: "Chi tiết dòng hàng hóa trong đơn đặt mua", pk: "MaDDH+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaDDH", "String/ObjectId", "FK (DonDatHang)", "Đơn đặt hàng cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Sản phẩm đặt mua"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng đặt"],
+          ["DonGia", "Number", ">= 0", "Đơn giá mua"],
+          ["ThanhTien", "Number", ">= 0", "Thành tiền"]
+        ]
+      },
+      {
+        moduleId: "m3", name: "PhieuNhap", desc: "Phiếu nhập kho hàng hóa (Mẫu 01-VT), tăng tồn kho & ghi nợ NCC", pk: "MaPN",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaPN", "String", "Unique (PNxxx)", "Mã phiếu nhập (01-VT)"],
+          ["MaDDH", "String/ObjectId", "FK (DonDatHang)", "Đơn đặt hàng liên kết"],
+          ["MaNCC", "String/ObjectId", "FK (NhaCungCap)", "Nhà cung cấp"],
+          ["MaNV", "String/ObjectId", "FK (NhanVien)", "Thủ kho nhận hàng"],
+          ["TongTien", "Number", ">= 0", "Tổng giá trị nhập"],
+          ["TrangThai", "String", "Enum", "Đã lưu, Hoàn thành, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m3", name: "CT_PhieuNhap", desc: "Chi tiết dòng sản phẩm nhập kho phục vụ thẻ kho", pk: "MaPN+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaPN", "String/ObjectId", "FK (PhieuNhap)", "Phiếu nhập cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Mặt hàng nhập"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng nhập"],
+          ["DonGia", "Number", ">= 0", "Giá vốn"],
+          ["ThanhTien", "Number", ">= 0", "Thành tiền"]
+        ]
+      },
+      // M4
+      {
+        moduleId: "m4", name: "DonHang", desc: "Đơn bán lẻ phát sinh tại quầy POS", pk: "MaDH",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaDH", "String", "Unique (DHxxx)", "Mã đơn hàng POS"],
+          ["MaKH", "String/ObjectId", "FK (KhachHang)", "Khách hàng mua"],
+          ["MaNV", "String/ObjectId", "FK (NhanVien)", "Thu ngân lập đơn"],
+          ["TongTien", "Number", ">= 0", "Tiền hàng"],
+          ["TienGiam", "Number", ">= 0", "Số tiền giảm voucher"],
+          ["ThanhTien", "Number", ">= 0", "Thực thu"],
+          ["TrangThai", "String", "Enum", "Hoàn thành, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m4", name: "CT_DonHang", desc: "Chi tiết dòng sản phẩm trên đơn bán lẻ", pk: "MaDH+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaDH", "String/ObjectId", "FK (DonHang)", "Đơn hàng cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Sản phẩm bán"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng bán"],
+          ["DonGia", "Number", ">= 0", "Đơn giá"],
+          ["ThanhTien", "Number", ">= 0", "Thành tiền"]
+        ]
+      },
+      {
+        moduleId: "m4", name: "HoaDon", desc: "Hóa đơn bán lẻ kiêm chứng từ giao nhận & theo dõi nợ khách", pk: "MaHD",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaHD", "String", "Unique (HDxxx)", "Mã hóa đơn"],
+          ["MaDH", "String/ObjectId", "1-1 (DonHang)", "Đơn bán hàng liên kết"],
+          ["MaKH", "String/ObjectId", "FK (KhachHang)", "Khách hàng"],
+          ["TongTien", "Number", ">= 0", "Tổng tiền hóa đơn"],
+          ["SoTienDaTra", "Number", ">= 0", "Đã thanh toán"],
+          ["ConNo", "Number", ">= 0", "Còn nợ lại"],
+          ["TrangThai", "String", "Enum", "Đã thanh toán, Chưa thanh toán, Thanh toán 1 phần, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m4", name: "CT_HoaDon", desc: "Chi tiết mặt hàng hóa đơn phục vụ đối soát doanh thu", pk: "MaHD+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaHD", "String/ObjectId", "FK (HoaDon)", "Hóa đơn cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Mặt hàng"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng"],
+          ["DonGia", "Number", ">= 0", "Đơn giá"],
+          ["ThanhTien", "Number", ">= 0", "Thành tiền"]
+        ]
+      },
+      {
+        moduleId: "m4", name: "PhieuXuat", desc: "Phiếu xuất kho hàng hóa (Mẫu 02-VT)", pk: "MaPX",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaPX", "String", "Unique (PXxxx)", "Mã phiếu xuất (02-VT)"],
+          ["MaDH", "String/ObjectId", "FK (DonHang)", "Đơn hàng liên kết"],
+          ["MaNV", "String/ObjectId", "FK (NhanVien)", "Thủ kho xuất"],
+          ["TongTien", "Number", ">= 0", "Giá trị xuất"],
+          ["TrangThai", "String", "Enum", "Hoàn thành, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m4", name: "CT_PhieuXuat", desc: "Chi tiết dòng hàng xuất kho phục vụ sổ vật tư", pk: "MaPX+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaPX", "String/ObjectId", "FK (PhieuXuat)", "Phiếu xuất cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Mặt hàng xuất"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng xuất"],
+          ["ThanhTien", "Number", ">= 0", "Thành tiền"]
+        ]
+      },
+      // M5
+      {
+        moduleId: "m5", name: "KiemKe", desc: "Phiếu kiểm kê đếm hàng định kỳ phát hiện thừa/thiếu", pk: "MaKK",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaKK", "String", "Unique (KKxxx)", "Mã đợt kiểm kê"],
+          ["NgayKiemKe", "String", "YYYY-MM-DD", "Ngày kiểm đếm"],
+          ["NguoiKiemKe", "String", "Bắt buộc", "Thủ kho kiểm kê"],
+          ["TrangThai", "String", "Enum", "Đang kiểm kê, Đã điều chỉnh, Chờ điều chỉnh, Khớp hoàn toàn"]
+        ]
+      },
+      {
+        moduleId: "m5", name: "CT_KiemKe", desc: "Chi tiết so lệch giữa tồn sổ sách và thực tế", pk: "MaKK+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaKK", "String/ObjectId", "FK (KiemKe)", "Phiếu kiểm kê cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Sản phẩm kiểm đếm"],
+          ["SoLuongHeThong", "Number", ">= 0", "Tồn sổ sách"],
+          ["SoLuongThucTe", "Number", ">= 0", "Tồn thực tế đếm"],
+          ["ChenhLech", "Number", "ThucTe - HeThong", "Dương: thừa, Âm: thiếu"]
+        ]
+      },
+      {
+        moduleId: "m5", name: "DieuChinhKho", desc: "Chứng từ điều chỉnh cân bằng kho sau kiểm kê", pk: "MaDC",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaDC", "String", "Unique (DCxxx)", "Mã phiếu điều chỉnh"],
+          ["MaKK", "String/ObjectId", "FK (KiemKe)", "Đợt kiểm kê căn cứ"],
+          ["NguoiThucHien", "String", "Bắt buộc", "Thủ kho bấm cân bằng"],
+          ["LyDo", "String", "Bắt buộc", "Căn cứ điều chỉnh"]
+        ]
+      },
+      {
+        moduleId: "m5", name: "PhieuTraHang", desc: "Phiếu nhận hàng khách trả lại, nhập tăng lại kho và hoàn tiền", pk: "MaPTH",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaPTH", "String", "Unique (PTHxxx)", "Mã phiếu đổi trả"],
+          ["MaDH", "String/ObjectId", "FK (DonHang)", "Đơn hàng gốc"],
+          ["MaKH", "String/ObjectId", "FK (KhachHang)", "Khách hàng"],
+          ["MaNV", "String/ObjectId", "FK (NhanVien)", "Nhân viên tiếp nhận"],
+          ["TrangThai", "String", "Enum", "Đã xử lý, Đã hoàn tiền, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m5", name: "CT_PhieuTraHang", desc: "Chi tiết mặt hàng khách trả lại nhập về kho", pk: "MaPTH+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaPTH", "String/ObjectId", "FK (PhieuTraHang)", "Phiếu trả cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Mặt hàng trả lại"],
+          ["SoLuong", "Number", "Nguyên dương", "Số lượng nhập lại"],
+          ["ThanhTien", "Number", ">= 0", "Tiền hoàn trả"]
+        ]
+      },
+      // M6
+      {
+        moduleId: "m6", name: "PhieuThu", desc: "Phiếu thu tiền mặt theo Mẫu 01-TT chế độ kế toán", pk: "MaPT",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaPT", "String", "Unique (PTxxx)", "Số hiệu phiếu thu (01-TT)"],
+          ["NguoiNopTien", "String", "Bắt buộc", "Người nộp quỹ"],
+          ["SoTien", "Number", "> 0", "Số tiền thu thực tế"],
+          ["ChungTuGoc", "String", "Ref", "Chứng từ gốc (HDxxx, CNxxx)"],
+          ["TrangThai", "String", "Enum", "Đã lập, Đã xác nhận, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m6", name: "PhieuChi", desc: "Phiếu chi tiền mặt theo Mẫu 02-TT chế độ kế toán", pk: "MaPC",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaPC", "String", "Unique (PCxxx)", "Số hiệu phiếu chi (02-TT)"],
+          ["NguoiNhanTien", "String", "Bắt buộc", "Người nhận tiền / NCC"],
+          ["SoTien", "Number", "> 0", "Số tiền chi quỹ"],
+          ["ChungTuGoc", "String", "Ref", "Chứng từ gốc (PNxxx)"],
+          ["TrangThai", "String", "Enum", "Đã lập, Đã xác nhận, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m6", name: "ThanhToan", desc: "Nhật ký giao dịch thanh toán hóa đơn (Tiền mặt, VietQR, CK)", pk: "MaTT",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaTT", "String", "Unique (TTxxx)", "Mã giao dịch"],
+          ["MaHD", "String/ObjectId", "FK (HoaDon)", "Hóa đơn được trả"],
+          ["SoTien", "Number", "> 0", "Số tiền thanh toán"],
+          ["PhuongThuc", "String", "Enum", "Tiền mặt, Chuyển khoản, VietQR"],
+          ["TrangThai", "String", "Enum", "Thành công, Đã hủy"]
+        ]
+      },
+      {
+        moduleId: "m6", name: "CongNo", desc: "Sổ theo dõi công nợ chi tiết 2 chiều (phải trả NCC và phải thu KH)", pk: "MaCN",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaCN", "String", "Unique (CNxxx)", "Mã bản ghi công nợ"],
+          ["MaPN", "String/ObjectId", "FK (PhieuNhap)", "Phiếu nhập nợ NCC"],
+          ["MaHD", "String/ObjectId", "FK (HoaDon)", "Hóa đơn nợ khách"],
+          ["LoaiCongNo", "String", "Enum", "Nhà cung cấp / Khách hàng"],
+          ["SoTien", "Number", ">= 0", "Số nợ gốc"],
+          ["SoTienDaTra", "Number", ">= 0", "Đã thanh toán"],
+          ["SoTienConLai", "Number", ">= 0", "Số dư nợ còn lại"],
+          ["TrangThai", "String", "Enum", "Còn nợ, Đã thanh toán, Quá hạn"]
+        ]
+      },
+      // M7
+      {
+        moduleId: "m7", name: "KhuyenMai", desc: "Chương trình ưu đãi, voucher giảm giá và sự kiện", pk: "MaKM",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["MaKM", "String", "Unique (KMxxx)", "Mã voucher / ưu đãi"],
+          ["TenKM", "String", "Bắt buộc", "Tên chương trình"],
+          ["LoaiKM", "String", "Enum", "Số tiền / Phần trăm"],
+          ["GiaTriGiam", "Number", ">= 0", "Mức giảm"],
+          ["TrangThai", "String", "Enum", "Đang áp dụng, Đã kết thúc, Chưa kích hoạt"]
+        ]
+      },
+      {
+        moduleId: "m7", name: "CT_KhuyenMai", desc: "Danh sách sản phẩm được áp dụng chương trình khuyến mãi", pk: "MaKM+MaSP",
+        fields: [
+          ["_id", "ObjectId/String", "PK", "Khóa chính dòng"],
+          ["MaKM", "String/ObjectId", "FK (KhuyenMai)", "Chương trình cha"],
+          ["MaSP", "String/ObjectId", "FK (SanPham)", "Mặt hàng ưu đãi"]
+        ]
+      },
+      {
+        moduleId: "m7", name: "Counters", desc: "Bộ đếm tự tăng quản lý sinh mã chứng từ duy nhất an toàn ($inc)", pk: "_id",
+        fields: [
+          ["_id", "String", "PK", "Tiền tố chứng từ (HD, SP, KH, PN, PC...)"],
+          ["seq", "Number", "Tự tăng", "Số thứ tự tự tăng đảm bảo không trùng lặp"]
+        ]
+      },
+      {
+        moduleId: "m7", name: "AuditLogs", desc: "Nhật ký kiểm toán hệ thống append-only ghi nhận mọi thao tác", pk: "_id",
+        fields: [
+          ["_id", "ObjectId", "PK", "Khóa chính tự sinh"],
+          ["timestamp", "Date", "Index", "Thời điểm phát sinh"],
+          ["userId", "String", "FK (Users)", "Mã người thực hiện"],
+          ["action", "String", "Bắt buộc", "LOGIN, CREATE, UPDATE, DELETE..."],
+          ["module", "String", "Bắt buộc", "Phân hệ bị tác động"],
+          ["entity", "String", "Bắt buộc", "Tên bảng CSDL thay đổi"],
+          ["description", "String", "Bắt buộc", "Nội dung chi tiết"]
+        ]
+      }
+    ];
+
+    let currentFilter = "all";
+    let searchQuery = "";
+    let isFlowView = false;
+
+    function renderFilters() {
+      const container = document.getElementById("filterContainer");
+      container.innerHTML = MODULES.map(m => `
+        <button
+          onclick="setFilter('${m.id}')"
+          class="px-3 py-1.5 rounded-lg whitespace-nowrap transition font-medium text-xs ${currentFilter === m.id ? 'bg-blue-600 text-white shadow-sm' : 'bg-[var(--background,#0f172a)] text-[var(--muted-foreground,#94a3b8)] hover:text-white border border-[var(--border,#334155)]'}"
+        >
+          ${m.name}
+        </button>
+      `).join("");
+    }
+
+    function renderCards() {
+      const container = document.getElementById("cardsView");
+      const filtered = COLLECTIONS.filter(c => {
+        const matchFilter = currentFilter === "all" || c.moduleId === currentFilter;
+        const matchSearch = searchQuery === "" || 
+          c.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          c.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          c.fields.some(f => f[0].toLowerCase().includes(searchQuery.toLowerCase()) || f[3].toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchFilter && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-xs text-[var(--muted-foreground,#64748b)]">
+            Không tìm thấy Collection nào phù hợp với bộ lọc hoặc từ khóa.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(c => `
+        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] hover:border-blue-500/50 rounded-xl p-4 shadow transition hover:shadow-md flex flex-col justify-between group">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${c.name.startsWith('CT_') ? 'bg-purple-400' : 'bg-blue-400'}"></span>
+                <h3 class="text-sm font-bold text-[var(--foreground,#f8fafc)] group-hover:text-blue-400 transition">${c.name}</h3>
+              </div>
+              <span class="text-[11px] px-2 py-0.5 rounded font-mono ${c.name.startsWith('CT_') ? 'badge-dt' : 'badge-pk'}">
+                PK: ${c.pk}
+              </span>
+            </div>
+            <p class="text-xs text-[var(--muted-foreground,#94a3b8)] mb-3 line-clamp-2">${c.desc}</p>
+            
+            <div class="space-y-1 mb-3 bg-[var(--background,#0f172a)]/60 p-2.5 rounded-lg border border-[var(--border,#334155)]/50">
+              <div class="text-[11px] font-semibold text-[var(--muted-foreground,#64748b)] mb-1 uppercase tracking-wider">CÁC TRƯỜNG CHÍNH:</div>
+              ${c.fields.slice(0, 4).map(f => `
+                <div class="flex items-center justify-between text-xs py-0.5 border-b border-[var(--border,#334155)]/20 last:border-0">
+                  <span class="font-mono font-medium text-slate-300">${f[0]}</span>
+                  <span class="text-[11px] text-[var(--muted-foreground,#64748b)]">${f[1]}</span>
+                </div>
+              `).join("")}
+              ${c.fields.length > 4 ? `
+                <div class="text-[11px] text-blue-400 font-medium text-center pt-1">+${c.fields.length - 4} trường khác...</div>
+              ` : ''}
+            </div>
+          </div>
+
+          <button
+            onclick="showDetail('${c.name}')"
+            class="w-full mt-2 py-1.5 px-3 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-blue-400 hover:text-white border border-slate-700 transition flex items-center justify-center gap-1"
+          >
+            📋 Xem Chi Tiết Bảng (${c.fields.length} trường)
+          </button>
+        </div>
+      `).join("");
+    }
+
+    function setFilter(id) {
+      currentFilter = id;
+      renderFilters();
+      renderCards();
+    }
+
+    function showDetail(name) {
+      const c = COLLECTIONS.find(item => item.name === name);
+      if (!c) return;
+      document.getElementById("modalPrefix").innerText = c.name.startsWith("CT_") ? "DETAIL" : "ENTITY";
+      document.getElementById("modalTitle").innerText = c.name;
+      document.getElementById("modalDesc").innerText = `${c.desc} • Khóa chính: ${c.pk}`;
+      
+      const tbody = document.getElementById("modalFieldsTable");
+      tbody.innerHTML = c.fields.map(f => {
+        let badgeClass = "text-slate-400";
+        if (f[2].includes("PK")) badgeClass = "badge-pk px-1.5 py-0.5 rounded text-[11px] font-bold";
+        else if (f[2].includes("FK")) badgeClass = "badge-fk px-1.5 py-0.5 rounded text-[11px]";
+        else if (f[2].includes("Unique")) badgeClass = "badge-uk px-1.5 py-0.5 rounded text-[11px]";
+        else badgeClass = "text-slate-400";
+
+        return `
+          <tr class="border-b border-[var(--border,#334155)] hover:bg-white/5 transition">
+            <td class="p-2.5 font-mono font-semibold text-slate-200">${f[0]}</td>
+            <td class="p-2.5 text-[var(--muted-foreground,#94a3b8)]">${f[1]}</td>
+            <td class="p-2.5"><span class="${badgeClass}">${f[2]}</span></td>
+            <td class="p-2.5 text-slate-300">${f[3]}</td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("detailModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("detailModal").classList.add("hidden");
+    }
+
+    function toggleViewMode() {
+      isFlowView = !isFlowView;
+      const cards = document.getElementById("cardsView");
+      const flow = document.getElementById("flowView");
+      const btn = document.getElementById("viewToggleBtn");
+
+      if (isFlowView) {
+        cards.classList.add("hidden");
+        flow.classList.remove("hidden");
+        btn.innerHTML = "<span>🗂️ Xem Thẻ Danh Sách Chi Tiết</span>";
+      } else {
+        cards.classList.remove("hidden");
+        flow.classList.add("hidden");
+        btn.innerHTML = "<span>🔄 Xem Sơ Đồ Khung Quan Hệ</span>";
+      }
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value.trim();
+      renderCards();
+    });
+
+    // Close modal on click outside
+    document.getElementById("detailModal").addEventListener("click", (e) => {
+      if (e.target.id === "detailModal") closeModal();
+    });
+
+    renderFilters();
+    renderCards();
+  </script>
+</body>
+</html>

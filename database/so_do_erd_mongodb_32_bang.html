@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Sơ Đồ ERD MongoDB Chuẩn 32 Collections - Dễ Nhìn & Sắc Nét</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .header {
+      background: #000000;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 8px;
+    }
+    .btn-svg { background: #10b981; color: white; }
+    .btn-png { background: #0284c7; color: white; }
+    .canvas-wrap {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 16px;
+      overflow: auto;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 24px;
+    }
+    svg {
+      min-width: 1750px;
+      display: block;
+    }
+    .lookup-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .lookup-table th {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 8px 12px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h2 style="margin:0; font-size:16px;">SƠ ĐỒ CƠ SỞ DỮ LIỆU MONGODB THỰC TẾ (32 COLLECTIONS)</h2>
+      <p style="margin:4px 0 0; font-size:12px; color:#cbd5e1;">Bố cục 6 cột chuẩn tỷ lệ • Đường nối chính xác từng dòng thuộc tính • Không chồng chéo</p>
+    </div>
+    <div>
+      <a href="so_do_erd_mongodb_32_bang.svg" download class="btn btn-svg">Tải SVG</a>
+      <a href="so_do_erd_mongodb_32_bang.png" download class="btn btn-png">Tải PNG Siêu Nét</a>
+    </div>
+  </div>
+
+  <div class="canvas-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1930 1257" width="100%" height="100%" style="background:#ffffff; font-family: Arial, Helvetica, sans-serif;">
+<defs>
+  <!-- Mũi tên tam giác đen đặc chuẩn bản vẽ kỹ thuật -->
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#000000" />
+  </marker>
+  <!-- Ký hiệu vạch vuông 1 đầu nguồn -->
+  <marker id="src-bar" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+    <line x1="2" y1="1" x2="2" y2="9" stroke="#000000" stroke-width="2.5" />
+  </marker>
+</defs>
+<!-- Header Title Banner -->
+<text x="50%" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#000000">Sơ đồ cơ sở dữ liệu MongoDB hoàn thiện thực tế (32 Collections)</text>
+<!-- RELATIONSHIP LINES -->
+<path d="M 300 348.5 L 318 348.5 L 318 639.5 L 300 639.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="322" y="494.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 300 114.5 L 318 114.5 L 318 620.5 L 300 620.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="322" y="367.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 300 95.5 L 318 95.5 L 318 841.5 L 300 841.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="322" y="468.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 95.5 L 628 95.5 L 628 664.5 L 610 664.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="632" y="380.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 628 607.5 L 628 860.5 L 610 860.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="632" y="734.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 610 234.5 L 640.0 234.5 L 640.0 133.5 L 670 133.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="642" y="129.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 640.0 607.5 L 640.0 329.5 L 670 329.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="642" y="325.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 920 95.5 L 938 95.5 L 938 310.5 L 920 310.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="942" y="203.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 920 95.5 L 938 95.5 L 938 487.5 L 920 487.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="942" y="291.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 920 449.5 L 938 449.5 L 938 664.5 L 920 664.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="942" y="557.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 640.0 607.5 L 640.0 683.5 L 670 683.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="642" y="679.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 411.5 L 795.0 411.5 L 795.0 133.5 L 980 133.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="952" y="129.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1230 95.5 L 1248 95.5 L 1248 329.5 L 1230 329.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1252" y="212.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 795.0 607.5 L 795.0 348.5 L 980 348.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="952" y="344.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1230 95.5 L 1248 95.5 L 1248 506.5 L 1230 506.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1252" y="301.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 1230 468.5 L 1248 468.5 L 1248 702.5 L 1230 702.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1252" y="585.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 795.0 607.5 L 795.0 721.5 L 980 721.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="952" y="717.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1230 95.5 L 1248 95.5 L 1248 879.5 L 1230 879.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1252" y="487.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1230 841.5 L 1248 841.5 L 1248 1037.5 L 1230 1037.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1252" y="939.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 795.0 607.5 L 795.0 1056.5 L 980 1056.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="952" y="1052.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1540 95.5 L 1558 95.5 L 1558 272.5 L 1540 272.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1562" y="184.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 950.0 607.5 L 950.0 291.5 L 1290 291.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1262" y="287.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1540 95.5 L 1558 95.5 L 1558 468.5 L 1540 468.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1562" y="282.0" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 1230 95.5 L 1260.0 95.5 L 1260.0 626.5 L 1290 626.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1262" y="622.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1540 588.5 L 1558 588.5 L 1558 822.5 L 1540 822.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1562" y="705.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 950.0 607.5 L 950.0 841.5 L 1290 841.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1262" y="837.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 920 449.5 L 1260.0 449.5 L 1260.0 133.5 L 1600 133.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="129.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 1230 468.5 L 1415.0 468.5 L 1415.0 171.5 L 1600 171.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="167.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:1</text>
+<path d="M 1230 468.5 L 1415.0 468.5 L 1415.0 386.5 L 1600 386.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="382.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1230 487.5 L 1415.0 487.5 L 1415.0 639.5 L 1600 639.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="635.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 920 468.5 L 1260.0 468.5 L 1260.0 835.5 L 1600 835.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="831.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 1850 917.5 L 1868 917.5 L 1868 1151.5 L 1850 1151.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1872" y="1034.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<path d="M 610 607.5 L 1105.0 607.5 L 1105.0 1170.5 L 1600 1170.5" fill="none" stroke="#000000" stroke-width="1.1" marker-start="url(#src-bar)" marker-end="url(#arrow)"/>
+<text x="1572" y="1166.5" font-size="8.5" font-family="monospace" font-weight="bold" fill="#000000">1:n</text>
+<!-- 32 TABLE BOXES -->
+<!-- Table: Users -->
+<g id="tbl_Users">
+  <rect x="50" y="60" width="250" height="216" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Users</text>
+  <line x1="185" y1="86" x2="185" y2="276" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="50" y1="105" x2="300" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="118.5" font-size="11" font-weight="normal" fill="#000000">username</text>
+  <text x="193" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="124" x2="300" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="137.5" font-size="11" font-weight="normal" fill="#000000">fullName</text>
+  <text x="193" y="137.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="143" x2="300" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="156.5" font-size="11" font-weight="normal" fill="#000000">role</text>
+  <text x="193" y="156.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="162" x2="300" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="175.5" font-size="11" font-weight="normal" fill="#000000">status</text>
+  <text x="193" y="175.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="181" x2="300" y2="181" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="194.5" font-size="11" font-weight="normal" fill="#000000">passwordHash</text>
+  <text x="193" y="194.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="200" x2="300" y2="200" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="213.5" font-size="11" font-weight="normal" fill="#000000">email</text>
+  <text x="193" y="213.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="219" x2="300" y2="219" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="232.5" font-size="11" font-weight="normal" fill="#000000">phone</text>
+  <text x="193" y="232.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="238" x2="300" y2="238" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="251.5" font-size="11" font-weight="normal" fill="#000000">CCCD</text>
+  <text x="193" y="251.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="257" x2="300" y2="257" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="270.5" font-size="11" font-weight="normal" fill="#000000">createdAt</text>
+  <text x="193" y="270.5" font-size="10.5" fill="#000000">Date</text>
+</g>
+<!-- Table: VaiTro -->
+<g id="tbl_VaiTro">
+  <rect x="50" y="294" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="294" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="312" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">VaiTro</text>
+  <line x1="185" y1="320" x2="185" y2="434" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="333.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="333.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="50" y1="339" x2="300" y2="339" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="352.5" font-size="11" font-weight="normal" fill="#000000">MaVaiTro</text>
+  <text x="193" y="352.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="50" y1="358" x2="300" y2="358" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="371.5" font-size="11" font-weight="normal" fill="#000000">TenVaiTro</text>
+  <text x="193" y="371.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="377" x2="300" y2="377" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="390.5" font-size="11" font-weight="normal" fill="#000000">MaKey</text>
+  <text x="193" y="390.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="396" x2="300" y2="396" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="409.5" font-size="11" font-weight="normal" fill="#000000">LaVaiTroHeThong</text>
+  <text x="193" y="409.5" font-size="10.5" fill="#000000">Boolean</text>
+  <line x1="50" y1="415" x2="300" y2="415" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="428.5" font-size="11" font-weight="normal" fill="#000000">QuyenHan</text>
+  <text x="193" y="428.5" font-size="10.5" fill="#000000">Object</text>
+</g>
+<!-- Table: NhanVien -->
+<g id="tbl_NhanVien">
+  <rect x="50" y="452" width="250" height="216" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="452" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="470" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">NhanVien</text>
+  <line x1="185" y1="478" x2="185" y2="668" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="491.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="491.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="50" y1="497" x2="300" y2="497" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="510.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="193" y="510.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="516" x2="300" y2="516" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="529.5" font-size="11" font-weight="normal" fill="#000000">HoTen</text>
+  <text x="193" y="529.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="535" x2="300" y2="535" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="548.5" font-size="11" font-weight="normal" fill="#000000">ChucVu</text>
+  <text x="193" y="548.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="554" x2="300" y2="554" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="567.5" font-size="11" font-weight="normal" fill="#000000">PhongBan</text>
+  <text x="193" y="567.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="573" x2="300" y2="573" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="586.5" font-size="11" font-weight="normal" fill="#000000">SDT</text>
+  <text x="193" y="586.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="592" x2="300" y2="592" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="605.5" font-size="11" font-weight="normal" fill="#000000">Email</text>
+  <text x="193" y="605.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="611" x2="300" y2="611" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="624.5" font-size="11" font-weight="normal" fill="#000000">username</text>
+  <text x="193" y="624.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="630" x2="300" y2="630" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="643.5" font-size="11" font-weight="normal" fill="#000000">MaVaiTro</text>
+  <text x="193" y="643.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="50" y1="649" x2="300" y2="649" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="662.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="193" y="662.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: Counters -->
+<g id="tbl_Counters">
+  <rect x="50" y="686" width="250" height="64" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="686" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="704" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">Counters</text>
+  <line x1="185" y1="712" x2="185" y2="750" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="725.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="725.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="731" x2="300" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="744.5" font-size="11" font-weight="normal" fill="#000000">seq</text>
+  <text x="193" y="744.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: AuditLogs -->
+<g id="tbl_AuditLogs">
+  <rect x="50" y="768" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="768" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="786" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">AuditLogs</text>
+  <line x1="185" y1="794" x2="185" y2="946" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="807.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="807.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="50" y1="813" x2="300" y2="813" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="826.5" font-size="11" font-weight="normal" fill="#000000">timestamp</text>
+  <text x="193" y="826.5" font-size="10.5" fill="#000000">Date</text>
+  <line x1="50" y1="832" x2="300" y2="832" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="845.5" font-size="11" font-weight="normal" fill="#000000">userId</text>
+  <text x="193" y="845.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="851" x2="300" y2="851" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="864.5" font-size="11" font-weight="normal" fill="#000000">username</text>
+  <text x="193" y="864.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="870" x2="300" y2="870" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="883.5" font-size="11" font-weight="normal" fill="#000000">action</text>
+  <text x="193" y="883.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="889" x2="300" y2="889" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="902.5" font-size="11" font-weight="normal" fill="#000000">module</text>
+  <text x="193" y="902.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="908" x2="300" y2="908" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="921.5" font-size="11" font-weight="normal" fill="#000000">entity</text>
+  <text x="193" y="921.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="927" x2="300" y2="927" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="940.5" font-size="11" font-weight="normal" fill="#000000">description</text>
+  <text x="193" y="940.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: _metadata -->
+<g id="tbl__metadata">
+  <rect x="50" y="964" width="250" height="102" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="50" y="964" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="175.0" y="982" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">_metadata</text>
+  <line x1="185" y1="990" x2="185" y2="1066" stroke="#000000" stroke-width="1.0"/>
+  <text x="58" y="1003.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="193" y="1003.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="1009" x2="300" y2="1009" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="1022.5" font-size="11" font-weight="normal" fill="#000000">key</text>
+  <text x="193" y="1022.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="50" y1="1028" x2="300" y2="1028" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="1041.5" font-size="11" font-weight="normal" fill="#000000">value</text>
+  <text x="193" y="1041.5" font-size="10.5" fill="#000000">Object</text>
+  <line x1="50" y1="1047" x2="300" y2="1047" stroke="#000000" stroke-width="0.6"/>
+  <text x="58" y="1060.5" font-size="11" font-weight="normal" fill="#000000">appliedAt</text>
+  <text x="193" y="1060.5" font-size="10.5" fill="#000000">Date</text>
+</g>
+<!-- Table: LoaiHang -->
+<g id="tbl_LoaiHang">
+  <rect x="360" y="60" width="250" height="121" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="360" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="485.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">LoaiHang</text>
+  <line x1="495" y1="86" x2="495" y2="181" stroke="#000000" stroke-width="1.0"/>
+  <text x="368" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="503" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="105" x2="610" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="118.5" font-size="11" font-weight="normal" fill="#000000">MaLoai</text>
+  <text x="503" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="124" x2="610" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="137.5" font-size="11" font-weight="normal" fill="#000000">TenLoai</text>
+  <text x="503" y="137.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="143" x2="610" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="156.5" font-size="11" font-weight="normal" fill="#000000">MoTa</text>
+  <text x="503" y="156.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="162" x2="610" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="175.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="503" y="175.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: NhaCungCap -->
+<g id="tbl_NhaCungCap">
+  <rect x="360" y="199" width="250" height="159" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="360" y="199" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="485.0" y="217" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">NhaCungCap</text>
+  <line x1="495" y1="225" x2="495" y2="358" stroke="#000000" stroke-width="1.0"/>
+  <text x="368" y="238.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="503" y="238.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="244" x2="610" y2="244" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="257.5" font-size="11" font-weight="normal" fill="#000000">MaNCC</text>
+  <text x="503" y="257.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="263" x2="610" y2="263" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="276.5" font-size="11" font-weight="normal" fill="#000000">TenNCC</text>
+  <text x="503" y="276.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="282" x2="610" y2="282" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="295.5" font-size="11" font-weight="normal" fill="#000000">NguoiLienHe</text>
+  <text x="503" y="295.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="301" x2="610" y2="301" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="314.5" font-size="11" font-weight="normal" fill="#000000">SDT</text>
+  <text x="503" y="314.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="320" x2="610" y2="320" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="333.5" font-size="11" font-weight="normal" fill="#000000">DiaChi</text>
+  <text x="503" y="333.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="339" x2="610" y2="339" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="352.5" font-size="11" font-weight="normal" fill="#000000">Email</text>
+  <text x="503" y="352.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: KhachHang -->
+<g id="tbl_KhachHang">
+  <rect x="360" y="376" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="360" y="376" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="485.0" y="394" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">KhachHang</text>
+  <line x1="495" y1="402" x2="495" y2="554" stroke="#000000" stroke-width="1.0"/>
+  <text x="368" y="415.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="503" y="415.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="421" x2="610" y2="421" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="434.5" font-size="11" font-weight="normal" fill="#000000">MaKH</text>
+  <text x="503" y="434.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="440" x2="610" y2="440" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="453.5" font-size="11" font-weight="normal" fill="#000000">HoTen</text>
+  <text x="503" y="453.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="459" x2="610" y2="459" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="472.5" font-size="11" font-weight="normal" fill="#000000">SDT</text>
+  <text x="503" y="472.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="478" x2="610" y2="478" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="491.5" font-size="11" font-weight="normal" fill="#000000">Email</text>
+  <text x="503" y="491.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="497" x2="610" y2="497" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="510.5" font-size="11" font-weight="normal" fill="#000000">DiaChi</text>
+  <text x="503" y="510.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="516" x2="610" y2="516" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="529.5" font-size="11" font-weight="normal" fill="#000000">DiemTichLuy</text>
+  <text x="503" y="529.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="535" x2="610" y2="535" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="548.5" font-size="11" font-weight="normal" fill="#000000">CapThanhVien</text>
+  <text x="503" y="548.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: SanPham -->
+<g id="tbl_SanPham">
+  <rect x="360" y="572" width="250" height="216" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="360" y="572" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="485.0" y="590" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">SanPham</text>
+  <line x1="495" y1="598" x2="495" y2="788" stroke="#000000" stroke-width="1.0"/>
+  <text x="368" y="611.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="503" y="611.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="617" x2="610" y2="617" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="630.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="503" y="630.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="636" x2="610" y2="636" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="649.5" font-size="11" font-weight="normal" fill="#000000">TenSP</text>
+  <text x="503" y="649.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="655" x2="610" y2="655" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="668.5" font-size="11" font-weight="normal" fill="#000000">MaLoai</text>
+  <text x="503" y="668.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="674" x2="610" y2="674" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="687.5" font-size="11" font-weight="normal" fill="#000000">DonViTinh</text>
+  <text x="503" y="687.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="693" x2="610" y2="693" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="706.5" font-size="11" font-weight="normal" fill="#000000">GiaNhap</text>
+  <text x="503" y="706.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="712" x2="610" y2="712" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="725.5" font-size="11" font-weight="normal" fill="#000000">GiaBan</text>
+  <text x="503" y="725.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="731" x2="610" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="744.5" font-size="11" font-weight="normal" fill="#000000">HanSuDung</text>
+  <text x="503" y="744.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="750" x2="610" y2="750" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="763.5" font-size="11" font-weight="normal" fill="#000000">stock</text>
+  <text x="503" y="763.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="769" x2="610" y2="769" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="782.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="503" y="782.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: TonKho -->
+<g id="tbl_TonKho">
+  <rect x="360" y="806" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="360" y="806" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="485.0" y="824" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">TonKho</text>
+  <line x1="495" y1="832" x2="495" y2="946" stroke="#000000" stroke-width="1.0"/>
+  <text x="368" y="845.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="503" y="845.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="851" x2="610" y2="851" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="864.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="503" y="864.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="360" y1="870" x2="610" y2="870" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="883.5" font-size="11" font-weight="normal" fill="#000000">SoLuongTon</text>
+  <text x="503" y="883.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="889" x2="610" y2="889" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="902.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="503" y="902.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="360" y1="908" x2="610" y2="908" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="921.5" font-size="11" font-weight="normal" fill="#000000">NgayCapNhat</text>
+  <text x="503" y="921.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="360" y1="927" x2="610" y2="927" stroke="#000000" stroke-width="0.6"/>
+  <text x="368" y="940.5" font-size="11" font-weight="normal" fill="#000000">updatedAt</text>
+  <text x="503" y="940.5" font-size="10.5" fill="#000000">Date</text>
+</g>
+<!-- Table: DonDatHang -->
+<g id="tbl_DonDatHang">
+  <rect x="670" y="60" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="670" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="795.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">DonDatHang</text>
+  <line x1="805" y1="86" x2="805" y2="238" stroke="#000000" stroke-width="1.0"/>
+  <text x="678" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="813" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="105" x2="920" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="118.5" font-size="11" font-weight="normal" fill="#000000">MaDDH</text>
+  <text x="813" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="670" y1="124" x2="920" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="137.5" font-size="11" font-weight="normal" fill="#000000">MaNCC</text>
+  <text x="813" y="137.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="143" x2="920" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="156.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="813" y="156.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="162" x2="920" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="175.5" font-size="11" font-weight="normal" fill="#000000">NgayDat</text>
+  <text x="813" y="175.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="670" y1="181" x2="920" y2="181" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="194.5" font-size="11" font-weight="normal" fill="#000000">TongTien</text>
+  <text x="813" y="194.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="200" x2="920" y2="200" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="213.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="813" y="213.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="670" y1="219" x2="920" y2="219" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="232.5" font-size="11" font-weight="normal" fill="#000000">NguoiLap</text>
+  <text x="813" y="232.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_DonDatHang -->
+<g id="tbl_CT_DonDatHang">
+  <rect x="670" y="256" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="670" y="256" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="795.0" y="274" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_DonDatHang</text>
+  <line x1="805" y1="282" x2="805" y2="396" stroke="#000000" stroke-width="1.0"/>
+  <text x="678" y="295.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="813" y="295.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="301" x2="920" y2="301" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="314.5" font-size="11" font-weight="normal" fill="#000000">MaDDH</text>
+  <text x="813" y="314.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="320" x2="920" y2="320" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="333.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="813" y="333.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="339" x2="920" y2="339" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="352.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="813" y="352.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="358" x2="920" y2="358" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="371.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="813" y="371.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="377" x2="920" y2="377" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="390.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="813" y="390.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: PhieuNhap -->
+<g id="tbl_PhieuNhap">
+  <rect x="670" y="414" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="670" y="414" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="795.0" y="432" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuNhap</text>
+  <line x1="805" y1="440" x2="805" y2="592" stroke="#000000" stroke-width="1.0"/>
+  <text x="678" y="453.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="813" y="453.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="459" x2="920" y2="459" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="472.5" font-size="11" font-weight="normal" fill="#000000">MaPN</text>
+  <text x="813" y="472.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="670" y1="478" x2="920" y2="478" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="491.5" font-size="11" font-weight="normal" fill="#000000">MaDDH</text>
+  <text x="813" y="491.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="497" x2="920" y2="497" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="510.5" font-size="11" font-weight="normal" fill="#000000">MaNCC</text>
+  <text x="813" y="510.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="516" x2="920" y2="516" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="529.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="813" y="529.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="535" x2="920" y2="535" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="548.5" font-size="11" font-weight="normal" fill="#000000">NgayNhap</text>
+  <text x="813" y="548.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="670" y1="554" x2="920" y2="554" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="567.5" font-size="11" font-weight="normal" fill="#000000">TongTien</text>
+  <text x="813" y="567.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="573" x2="920" y2="573" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="586.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="813" y="586.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_PhieuNhap -->
+<g id="tbl_CT_PhieuNhap">
+  <rect x="670" y="610" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="670" y="610" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="795.0" y="628" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuNhap</text>
+  <line x1="805" y1="636" x2="805" y2="750" stroke="#000000" stroke-width="1.0"/>
+  <text x="678" y="649.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="813" y="649.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="655" x2="920" y2="655" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="668.5" font-size="11" font-weight="normal" fill="#000000">MaPN</text>
+  <text x="813" y="668.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="674" x2="920" y2="674" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="687.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="813" y="687.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="670" y1="693" x2="920" y2="693" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="706.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="813" y="706.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="712" x2="920" y2="712" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="725.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="813" y="725.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="670" y1="731" x2="920" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="678" y="744.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="813" y="744.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: DonHang -->
+<g id="tbl_DonHang">
+  <rect x="980" y="60" width="250" height="197" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">DonHang</text>
+  <line x1="1115" y1="86" x2="1115" y2="257" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="105" x2="1230" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="118.5" font-size="11" font-weight="normal" fill="#000000">MaDH</text>
+  <text x="1123" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="124" x2="1230" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="137.5" font-size="11" font-weight="normal" fill="#000000">MaKH</text>
+  <text x="1123" y="137.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="143" x2="1230" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="156.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="1123" y="156.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="162" x2="1230" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="175.5" font-size="11" font-weight="normal" fill="#000000">NgayDat</text>
+  <text x="1123" y="175.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="181" x2="1230" y2="181" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="194.5" font-size="11" font-weight="normal" fill="#000000">TongTien</text>
+  <text x="1123" y="194.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="200" x2="1230" y2="200" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="213.5" font-size="11" font-weight="normal" fill="#000000">TienGiam</text>
+  <text x="1123" y="213.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="219" x2="1230" y2="219" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="232.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="1123" y="232.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="238" x2="1230" y2="238" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="251.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1123" y="251.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_DonHang -->
+<g id="tbl_CT_DonHang">
+  <rect x="980" y="275" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="275" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="293" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_DonHang</text>
+  <line x1="1115" y1="301" x2="1115" y2="415" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="314.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="314.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="320" x2="1230" y2="320" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="333.5" font-size="11" font-weight="normal" fill="#000000">MaDH</text>
+  <text x="1123" y="333.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="339" x2="1230" y2="339" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="352.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1123" y="352.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="358" x2="1230" y2="358" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="371.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="1123" y="371.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="377" x2="1230" y2="377" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="390.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="1123" y="390.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="396" x2="1230" y2="396" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="409.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="1123" y="409.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: HoaDon -->
+<g id="tbl_HoaDon">
+  <rect x="980" y="433" width="250" height="197" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="433" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="451" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">HoaDon</text>
+  <line x1="1115" y1="459" x2="1115" y2="630" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="472.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="472.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="478" x2="1230" y2="478" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="491.5" font-size="11" font-weight="normal" fill="#000000">MaHD</text>
+  <text x="1123" y="491.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="497" x2="1230" y2="497" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="510.5" font-size="11" font-weight="normal" fill="#000000">MaDH</text>
+  <text x="1123" y="510.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="516" x2="1230" y2="516" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="529.5" font-size="11" font-weight="normal" fill="#000000">MaKH</text>
+  <text x="1123" y="529.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="535" x2="1230" y2="535" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="548.5" font-size="11" font-weight="normal" fill="#000000">NgayLap</text>
+  <text x="1123" y="548.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="554" x2="1230" y2="554" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="567.5" font-size="11" font-weight="normal" fill="#000000">TongTien</text>
+  <text x="1123" y="567.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="573" x2="1230" y2="573" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="586.5" font-size="11" font-weight="normal" fill="#000000">SoTienDaTra</text>
+  <text x="1123" y="586.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="592" x2="1230" y2="592" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="605.5" font-size="11" font-weight="normal" fill="#000000">ConNo</text>
+  <text x="1123" y="605.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="611" x2="1230" y2="611" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="624.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1123" y="624.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_HoaDon -->
+<g id="tbl_CT_HoaDon">
+  <rect x="980" y="648" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="648" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="666" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_HoaDon</text>
+  <line x1="1115" y1="674" x2="1115" y2="788" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="687.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="687.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="693" x2="1230" y2="693" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="706.5" font-size="11" font-weight="normal" fill="#000000">MaHD</text>
+  <text x="1123" y="706.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="712" x2="1230" y2="712" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="725.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1123" y="725.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="731" x2="1230" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="744.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="1123" y="744.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="750" x2="1230" y2="750" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="763.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="1123" y="763.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="769" x2="1230" y2="769" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="782.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="1123" y="782.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: PhieuXuat -->
+<g id="tbl_PhieuXuat">
+  <rect x="980" y="806" width="250" height="159" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="806" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="824" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuXuat</text>
+  <line x1="1115" y1="832" x2="1115" y2="965" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="845.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="845.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="851" x2="1230" y2="851" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="864.5" font-size="11" font-weight="normal" fill="#000000">MaPX</text>
+  <text x="1123" y="864.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="870" x2="1230" y2="870" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="883.5" font-size="11" font-weight="normal" fill="#000000">MaDH</text>
+  <text x="1123" y="883.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="889" x2="1230" y2="889" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="902.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="1123" y="902.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="908" x2="1230" y2="908" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="921.5" font-size="11" font-weight="normal" fill="#000000">NgayXuat</text>
+  <text x="1123" y="921.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="980" y1="927" x2="1230" y2="927" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="940.5" font-size="11" font-weight="normal" fill="#000000">TongTien</text>
+  <text x="1123" y="940.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="946" x2="1230" y2="946" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="959.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1123" y="959.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_PhieuXuat -->
+<g id="tbl_CT_PhieuXuat">
+  <rect x="980" y="983" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="980" y="983" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1105.0" y="1001" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuXuat</text>
+  <line x1="1115" y1="1009" x2="1115" y2="1123" stroke="#000000" stroke-width="1.0"/>
+  <text x="988" y="1022.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1123" y="1022.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="1028" x2="1230" y2="1028" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="1041.5" font-size="11" font-weight="normal" fill="#000000">MaPX</text>
+  <text x="1123" y="1041.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="1047" x2="1230" y2="1047" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="1060.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1123" y="1060.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="980" y1="1066" x2="1230" y2="1066" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="1079.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="1123" y="1079.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="1085" x2="1230" y2="1085" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="1098.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="1123" y="1098.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="980" y1="1104" x2="1230" y2="1104" stroke="#000000" stroke-width="0.6"/>
+  <text x="988" y="1117.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="1123" y="1117.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: KiemKe -->
+<g id="tbl_KiemKe">
+  <rect x="1290" y="60" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1290" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1415.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">KiemKe</text>
+  <line x1="1425" y1="86" x2="1425" y2="200" stroke="#000000" stroke-width="1.0"/>
+  <text x="1298" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1433" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="105" x2="1540" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="118.5" font-size="11" font-weight="normal" fill="#000000">MaKK</text>
+  <text x="1433" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="124" x2="1540" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="137.5" font-size="11" font-weight="normal" fill="#000000">NgayKiemKe</text>
+  <text x="1433" y="137.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="143" x2="1540" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="156.5" font-size="11" font-weight="normal" fill="#000000">NguoiKiemKe</text>
+  <text x="1433" y="156.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="162" x2="1540" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="175.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1433" y="175.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="181" x2="1540" y2="181" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="194.5" font-size="11" font-weight="normal" fill="#000000">GhiChu</text>
+  <text x="1433" y="194.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_KiemKe -->
+<g id="tbl_CT_KiemKe">
+  <rect x="1290" y="218" width="250" height="159" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1290" y="218" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1415.0" y="236" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_KiemKe</text>
+  <line x1="1425" y1="244" x2="1425" y2="377" stroke="#000000" stroke-width="1.0"/>
+  <text x="1298" y="257.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1433" y="257.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="263" x2="1540" y2="263" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="276.5" font-size="11" font-weight="normal" fill="#000000">MaKK</text>
+  <text x="1433" y="276.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="282" x2="1540" y2="282" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="295.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1433" y="295.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="301" x2="1540" y2="301" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="314.5" font-size="11" font-weight="normal" fill="#000000">SoLuongHeThong</text>
+  <text x="1433" y="314.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1290" y1="320" x2="1540" y2="320" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="333.5" font-size="11" font-weight="normal" fill="#000000">SoLuongThucTe</text>
+  <text x="1433" y="333.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1290" y1="339" x2="1540" y2="339" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="352.5" font-size="11" font-weight="normal" fill="#000000">ChenhLech</text>
+  <text x="1433" y="352.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1290" y1="358" x2="1540" y2="358" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="371.5" font-size="11" font-weight="normal" fill="#000000">LyDo</text>
+  <text x="1433" y="371.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: DieuChinhKho -->
+<g id="tbl_DieuChinhKho">
+  <rect x="1290" y="395" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1290" y="395" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1415.0" y="413" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">DieuChinhKho</text>
+  <line x1="1425" y1="421" x2="1425" y2="535" stroke="#000000" stroke-width="1.0"/>
+  <text x="1298" y="434.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1433" y="434.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="440" x2="1540" y2="440" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="453.5" font-size="11" font-weight="normal" fill="#000000">MaDC</text>
+  <text x="1433" y="453.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="459" x2="1540" y2="459" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="472.5" font-size="11" font-weight="normal" fill="#000000">MaKK</text>
+  <text x="1433" y="472.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="478" x2="1540" y2="478" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="491.5" font-size="11" font-weight="normal" fill="#000000">NgayDieuChinh</text>
+  <text x="1433" y="491.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="497" x2="1540" y2="497" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="510.5" font-size="11" font-weight="normal" fill="#000000">NguoiThucHien</text>
+  <text x="1433" y="510.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="516" x2="1540" y2="516" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="529.5" font-size="11" font-weight="normal" fill="#000000">LyDo</text>
+  <text x="1433" y="529.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: PhieuTraHang -->
+<g id="tbl_PhieuTraHang">
+  <rect x="1290" y="553" width="250" height="197" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1290" y="553" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1415.0" y="571" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuTraHang</text>
+  <line x1="1425" y1="579" x2="1425" y2="750" stroke="#000000" stroke-width="1.0"/>
+  <text x="1298" y="592.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1433" y="592.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="598" x2="1540" y2="598" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="611.5" font-size="11" font-weight="normal" fill="#000000">MaPTH</text>
+  <text x="1433" y="611.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="617" x2="1540" y2="617" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="630.5" font-size="11" font-weight="normal" fill="#000000">MaDH</text>
+  <text x="1433" y="630.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="636" x2="1540" y2="636" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="649.5" font-size="11" font-weight="normal" fill="#000000">MaHD</text>
+  <text x="1433" y="649.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="655" x2="1540" y2="655" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="668.5" font-size="11" font-weight="normal" fill="#000000">MaKH</text>
+  <text x="1433" y="668.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="674" x2="1540" y2="674" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="687.5" font-size="11" font-weight="normal" fill="#000000">MaNV</text>
+  <text x="1433" y="687.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="693" x2="1540" y2="693" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="706.5" font-size="11" font-weight="normal" fill="#000000">NgayTra</text>
+  <text x="1433" y="706.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="712" x2="1540" y2="712" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="725.5" font-size="11" font-weight="normal" fill="#000000">LyDo</text>
+  <text x="1433" y="725.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1290" y1="731" x2="1540" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="744.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1433" y="744.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_PhieuTraHang -->
+<g id="tbl_CT_PhieuTraHang">
+  <rect x="1290" y="768" width="250" height="140" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1290" y="768" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1415.0" y="786" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuTraHang</text>
+  <line x1="1425" y1="794" x2="1425" y2="908" stroke="#000000" stroke-width="1.0"/>
+  <text x="1298" y="807.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1433" y="807.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="813" x2="1540" y2="813" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="826.5" font-size="11" font-weight="normal" fill="#000000">MaPTH</text>
+  <text x="1433" y="826.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="832" x2="1540" y2="832" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="845.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1433" y="845.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1290" y1="851" x2="1540" y2="851" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="864.5" font-size="11" font-weight="normal" fill="#000000">SoLuong</text>
+  <text x="1433" y="864.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1290" y1="870" x2="1540" y2="870" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="883.5" font-size="11" font-weight="normal" fill="#000000">DonGia</text>
+  <text x="1433" y="883.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1290" y1="889" x2="1540" y2="889" stroke="#000000" stroke-width="0.6"/>
+  <text x="1298" y="902.5" font-size="11" font-weight="normal" fill="#000000">ThanhTien</text>
+  <text x="1433" y="902.5" font-size="10.5" fill="#000000">Number</text>
+</g>
+<!-- Table: CongNo -->
+<g id="tbl_CongNo">
+  <rect x="1600" y="60" width="250" height="235" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="60" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="78" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CongNo</text>
+  <line x1="1735" y1="86" x2="1735" y2="295" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="99.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="99.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="105" x2="1850" y2="105" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="118.5" font-size="11" font-weight="normal" fill="#000000">MaCN</text>
+  <text x="1743" y="118.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="124" x2="1850" y2="124" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="137.5" font-size="11" font-weight="normal" fill="#000000">MaPN</text>
+  <text x="1743" y="137.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="143" x2="1850" y2="143" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="156.5" font-size="11" font-weight="normal" fill="#000000">MaNCC</text>
+  <text x="1743" y="156.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="162" x2="1850" y2="162" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="175.5" font-size="11" font-weight="normal" fill="#000000">MaHD</text>
+  <text x="1743" y="175.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="181" x2="1850" y2="181" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="194.5" font-size="11" font-weight="normal" fill="#000000">MaKH</text>
+  <text x="1743" y="194.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="200" x2="1850" y2="200" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="213.5" font-size="11" font-weight="normal" fill="#000000">LoaiCongNo</text>
+  <text x="1743" y="213.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="219" x2="1850" y2="219" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="232.5" font-size="11" font-weight="normal" fill="#000000">SoTien</text>
+  <text x="1743" y="232.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="238" x2="1850" y2="238" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="251.5" font-size="11" font-weight="normal" fill="#000000">SoTienDaTra</text>
+  <text x="1743" y="251.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="257" x2="1850" y2="257" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="270.5" font-size="11" font-weight="normal" fill="#000000">SoTienConLai</text>
+  <text x="1743" y="270.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="276" x2="1850" y2="276" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="289.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1743" y="289.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: ThanhToan -->
+<g id="tbl_ThanhToan">
+  <rect x="1600" y="313" width="250" height="159" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="313" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="331" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">ThanhToan</text>
+  <line x1="1735" y1="339" x2="1735" y2="472" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="352.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="352.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="358" x2="1850" y2="358" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="371.5" font-size="11" font-weight="normal" fill="#000000">MaTT</text>
+  <text x="1743" y="371.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="377" x2="1850" y2="377" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="390.5" font-size="11" font-weight="normal" fill="#000000">MaHD</text>
+  <text x="1743" y="390.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="396" x2="1850" y2="396" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="409.5" font-size="11" font-weight="normal" fill="#000000">SoTien</text>
+  <text x="1743" y="409.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="415" x2="1850" y2="415" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="428.5" font-size="11" font-weight="normal" fill="#000000">PhuongThuc</text>
+  <text x="1743" y="428.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="434" x2="1850" y2="434" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="447.5" font-size="11" font-weight="normal" fill="#000000">NgayThanhToan</text>
+  <text x="1743" y="447.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="453" x2="1850" y2="453" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="466.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1743" y="466.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: PhieuThu -->
+<g id="tbl_PhieuThu">
+  <rect x="1600" y="490" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="490" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="508" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuThu</text>
+  <line x1="1735" y1="516" x2="1735" y2="668" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="529.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="529.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="535" x2="1850" y2="535" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="548.5" font-size="11" font-weight="normal" fill="#000000">MaPT</text>
+  <text x="1743" y="548.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="554" x2="1850" y2="554" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="567.5" font-size="11" font-weight="normal" fill="#000000">NgayLap</text>
+  <text x="1743" y="567.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="573" x2="1850" y2="573" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="586.5" font-size="11" font-weight="normal" fill="#000000">NguoiNopTien</text>
+  <text x="1743" y="586.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="592" x2="1850" y2="592" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="605.5" font-size="11" font-weight="normal" fill="#000000">LyDo</text>
+  <text x="1743" y="605.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="611" x2="1850" y2="611" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="624.5" font-size="11" font-weight="normal" fill="#000000">SoTien</text>
+  <text x="1743" y="624.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="630" x2="1850" y2="630" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="643.5" font-size="11" font-weight="normal" fill="#000000">ChungTuGoc</text>
+  <text x="1743" y="643.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="649" x2="1850" y2="649" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="662.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1743" y="662.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: PhieuChi -->
+<g id="tbl_PhieuChi">
+  <rect x="1600" y="686" width="250" height="178" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="686" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="704" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuChi</text>
+  <line x1="1735" y1="712" x2="1735" y2="864" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="725.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="725.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="731" x2="1850" y2="731" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="744.5" font-size="11" font-weight="normal" fill="#000000">MaPC</text>
+  <text x="1743" y="744.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="750" x2="1850" y2="750" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="763.5" font-size="11" font-weight="normal" fill="#000000">NgayLap</text>
+  <text x="1743" y="763.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="769" x2="1850" y2="769" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="782.5" font-size="11" font-weight="normal" fill="#000000">NguoiNhanTien</text>
+  <text x="1743" y="782.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="788" x2="1850" y2="788" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="801.5" font-size="11" font-weight="normal" fill="#000000">LyDo</text>
+  <text x="1743" y="801.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="807" x2="1850" y2="807" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="820.5" font-size="11" font-weight="normal" fill="#000000">SoTien</text>
+  <text x="1743" y="820.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="826" x2="1850" y2="826" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="839.5" font-size="11" font-weight="normal" fill="#000000">ChungTuGoc</text>
+  <text x="1743" y="839.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="845" x2="1850" y2="845" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="858.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1743" y="858.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: KhuyenMai -->
+<g id="tbl_KhuyenMai">
+  <rect x="1600" y="882" width="250" height="197" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="882" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="900" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">KhuyenMai</text>
+  <line x1="1735" y1="908" x2="1735" y2="1079" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="921.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="921.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="927" x2="1850" y2="927" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="940.5" font-size="11" font-weight="normal" fill="#000000">MaKM</text>
+  <text x="1743" y="940.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="946" x2="1850" y2="946" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="959.5" font-size="11" font-weight="normal" fill="#000000">TenKM</text>
+  <text x="1743" y="959.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="965" x2="1850" y2="965" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="978.5" font-size="11" font-weight="normal" fill="#000000">LoaiKM</text>
+  <text x="1743" y="978.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="984" x2="1850" y2="984" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="997.5" font-size="11" font-weight="normal" fill="#000000">GiaTriGiam</text>
+  <text x="1743" y="997.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="1003" x2="1850" y2="1003" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1016.5" font-size="11" font-weight="normal" fill="#000000">PhanTramGiam</text>
+  <text x="1743" y="1016.5" font-size="10.5" fill="#000000">Number</text>
+  <line x1="1600" y1="1022" x2="1850" y2="1022" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1035.5" font-size="11" font-weight="normal" fill="#000000">NgayBatDau</text>
+  <text x="1743" y="1035.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="1041" x2="1850" y2="1041" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1054.5" font-size="11" font-weight="normal" fill="#000000">NgayKetThuc</text>
+  <text x="1743" y="1054.5" font-size="10.5" fill="#000000">String</text>
+  <line x1="1600" y1="1060" x2="1850" y2="1060" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1073.5" font-size="11" font-weight="normal" fill="#000000">TrangThai</text>
+  <text x="1743" y="1073.5" font-size="10.5" fill="#000000">String</text>
+</g>
+<!-- Table: CT_KhuyenMai -->
+<g id="tbl_CT_KhuyenMai">
+  <rect x="1600" y="1097" width="250" height="102" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>
+  <rect x="1600" y="1097" width="250" height="26" fill="#000000" stroke="#000000" stroke-width="1.6"/>
+  <text x="1725.0" y="1115" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_KhuyenMai</text>
+  <line x1="1735" y1="1123" x2="1735" y2="1199" stroke="#000000" stroke-width="1.0"/>
+  <text x="1608" y="1136.5" font-size="11" font-weight="bold" fill="#000000">_id</text>
+  <text x="1743" y="1136.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="1142" x2="1850" y2="1142" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1155.5" font-size="11" font-weight="normal" fill="#000000">MaKM</text>
+  <text x="1743" y="1155.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="1161" x2="1850" y2="1161" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1174.5" font-size="11" font-weight="normal" fill="#000000">MaSP</text>
+  <text x="1743" y="1174.5" font-size="10.5" fill="#000000">ObjectId</text>
+  <line x1="1600" y1="1180" x2="1850" y2="1180" stroke="#000000" stroke-width="0.6"/>
+  <text x="1608" y="1193.5" font-size="11" font-weight="normal" fill="#000000">createdAt</text>
+  <text x="1743" y="1193.5" font-size="10.5" fill="#000000">Date</text>
+</g>
+</svg>
+  </div>
+
+  <div style="background:#ffffff; padding:20px; border-radius:8px; border:1px solid #e2e8f0;">
+    <h3 style="margin:0 0 12px 0; font-size:15px; color:#0f172a;">📋 BẢNG TRA CỨU ĐIỀU KIỆN LIÊN KẾT (JOIN / $LOOKUP MAPPING) GIỮA 32 BẢNG</h3>
+    <table class="lookup-table">
+      <thead>
+        <tr>
+          <th>Bảng Nguồn (Parent)</th>
+          <th>Trường Nguồn</th>
+          <th style="text-align:center;">Quan Hệ</th>
+          <th>Bảng Đích (Child)</th>
+          <th>Trường Đích (FK)</th>
+          <th>Cú Pháp Điều Kiện $lookup</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">VaiTro</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaVaiTro</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">NhanVien</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaVaiTro</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: VaiTro.MaVaiTro = NhanVien.MaVaiTro</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">Users</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">username</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">NhanVien</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">username</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: Users.username = NhanVien.username</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">Users</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">AuditLogs</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">userId</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: Users._id = AuditLogs.userId</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">LoaiHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaLoai</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: LoaiHang._id = SanPham.MaLoai</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">TonKho</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = TonKho.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">NhaCungCap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonDatHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaNCC</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: NhaCungCap._id = DonDatHang.MaNCC</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_DonDatHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_DonDatHang.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonDatHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_DonDatHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonDatHang._id = CT_DonDatHang.MaDDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonDatHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonDatHang._id = PhieuNhap.MaDDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaPN</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: PhieuNhap._id = CT_PhieuNhap.MaPN</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_PhieuNhap.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">KhachHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaKH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: KhachHang._id = DonHang.MaKH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonHang._id = CT_DonHang.MaDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_DonHang.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonHang._id = HoaDon.MaDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaHD</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: HoaDon._id = CT_HoaDon.MaHD</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_HoaDon.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuXuat</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonHang._id = PhieuXuat.MaDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuXuat</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuXuat</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaPX</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: PhieuXuat._id = CT_PhieuXuat.MaPX</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuXuat</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_PhieuXuat.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">KiemKe</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_KiemKe</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaKK</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: KiemKe._id = CT_KiemKe.MaKK</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_KiemKe</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_KiemKe.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">KiemKe</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DieuChinhKho</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaKK</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: KiemKe._id = DieuChinhKho.MaKK</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">DonHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuTraHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaDH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: DonHang._id = PhieuTraHang.MaDH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuTraHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuTraHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaPTH</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: PhieuTraHang._id = CT_PhieuTraHang.MaPTH</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_PhieuTraHang</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_PhieuTraHang.MaSP</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CongNo</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaPN</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: PhieuNhap._id = CongNo.MaPN</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:1</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CongNo</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaHD</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: HoaDon._id = CongNo.MaHD</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">ThanhToan</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaHD</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: HoaDon._id = ThanhToan.MaHD</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">HoaDon</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaHD</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuThu</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">ChungTuGoc</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: HoaDon.MaHD = PhieuThu.ChungTuGoc</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuNhap</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaPN</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">PhieuChi</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">ChungTuGoc</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: PhieuNhap.MaPN = PhieuChi.ChungTuGoc</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">KhuyenMai</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_KhuyenMai</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaKM</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: KhuyenMai._id = CT_KhuyenMai.MaKM</td>
+        </tr><tr>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">SanPham</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">_id</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; text-align:center; font-weight:bold; color:#10b981;">1:n</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;">CT_KhuyenMai</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-family:monospace; color:#0284c7;">MaSP</td>
+            <td style="padding:6px 12px; border:1px solid #e2e8f0; font-size:11px; color:#64748b;">$lookup: SanPham._id = CT_KhuyenMai.MaSP</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Sơ Đồ ERD Logic Chuẩn Hóa - Baby Shop Management</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f1f5f9;
+    }
+    .header {
+      background: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-svg { background: #10b981; color: white; }
+    .btn-svg:hover { background: #059669; }
+    .btn-png { background: #0284c7; color: white; }
+    .btn-png:hover { background: #0369a1; }
+    .canvas-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      padding: 12px;
+      overflow: auto;
+      border: 1px solid #e2e8f0;
+    }
+    svg {
+      min-width: 1600px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1 style="margin:0; font-size:17px; color:#0f172a; font-weight:700;">SƠ ĐỒ THỰC THỂ LIÊN KẾT (ERD) - 25 BẢNG CƠ SỞ DỮ LIỆU CHUẨN HÓA</h1>
+      <p style="margin:4px 0 0; font-size:12px; color:#64748b;">Bố cục 5 Phân hệ kiến trúc rõ ràng • Ghép đôi Header - Detail theo trục dọc • Tuyệt đối không giao cắt chồng chéo</p>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <a href="so_do_erd_chuan.svg" download class="btn btn-svg">📥 Tải SVG Vector</a>
+      <a href="so_do_erd_chuan.png" download class="btn btn-png">🖼️ Tải PNG Siêu Nét</a>
+    </div>
+  </div>
+  <div class="canvas-container">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2580 1140" width="100%" height="100%" style="background:#ffffff; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+<defs>
+  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="0.8"/>
+  </pattern>
+  <!-- Crow foot markers -->
+  <marker id="crow" viewBox="0 0 24 24" refX="22" refY="12" markerWidth="14" markerHeight="14" orient="auto">
+    <path d="M 2 4 L 22 12 L 2 20 M 2 12 L 22 12" fill="none" stroke="#334155" stroke-width="1.8" />
+    <circle cx="6" cy="12" r="3.5" fill="#fff" stroke="#334155" stroke-width="1.6" />
+  </marker>
+  <marker id="one" viewBox="0 0 16 16" refX="2" refY="8" markerWidth="12" markerHeight="12" orient="auto">
+    <line x1="6" y1="2" x2="6" y2="14" stroke="#334155" stroke-width="1.8" />
+    <line x1="12" y1="2" x2="12" y2="14" stroke="#334155" stroke-width="1.8" />
+  </marker>
+</defs>
+<rect width="2580" height="1140" fill="url(#grid)"/>
+<!-- FUNCTIONAL ZONE CONTAINERS -->
+<g id="zone_1. ">
+  <rect x="60" y="50" width="2470" height="270" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <rect x="60" y="50" width="2470" height="32" rx="12" fill="#cbd5e1" opacity="0.4" />
+  <text x="76" y="71" font-size="12" font-weight="bold" fill="#334155" letter-spacing="0.5">1. MASTER DATA (DANH MỤC DỮ LIỆU NỀN TẢNG)</text>
+</g>
+<g id="zone_2. ">
+  <rect x="60" y="380" width="610" height="720" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" />
+  <rect x="60" y="380" width="610" height="32" rx="12" fill="#fde68a" opacity="0.4" />
+  <text x="76" y="401" font-size="12" font-weight="bold" fill="#334155" letter-spacing="0.5">2. MUA HÀNG & NHẬP KHO</text>
+</g>
+<g id="zone_3. ">
+  <rect x="700" y="380" width="610" height="720" rx="12" fill="#fdf2f8" stroke="#fbcfe8" stroke-width="1.5" />
+  <rect x="700" y="380" width="610" height="32" rx="12" fill="#fbcfe8" opacity="0.4" />
+  <text x="716" y="401" font-size="12" font-weight="bold" fill="#334155" letter-spacing="0.5">3. BÁN HÀNG, HÓA ĐƠN & THU TIỀN</text>
+</g>
+<g id="zone_4. ">
+  <rect x="1340" y="380" width="860" height="720" rx="12" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1.5" />
+  <rect x="1340" y="380" width="860" height="32" rx="12" fill="#a5f3fc" opacity="0.4" />
+  <text x="1356" y="401" font-size="12" font-weight="bold" fill="#334155" letter-spacing="0.5">4. KHO VẬN, KIỂM KÊ & ĐỔI TRẢ</text>
+</g>
+<g id="zone_5. ">
+  <rect x="2230" y="380" width="300" height="720" rx="12" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5" />
+  <rect x="2230" y="380" width="300" height="32" rx="12" fill="#ddd6fe" opacity="0.4" />
+  <text x="2246" y="401" font-size="12" font-weight="bold" fill="#334155" letter-spacing="0.5">5. KHUYẾN MÃI & CHIẾT KHẤU</text>
+</g>
+<!-- BUS CHANNELS & RELATIONSHIP LINES -->
+<path d="M 300.0 138.0 L 325.0 138.0 L 325.0 182.0 L 350.0 182.0" fill="none" stroke="#0284c7" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="301.0" y="173.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" /><text x="325.0" y="185.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0284c7">1 - n (MaVT)</text>
+<path d="M 880.0 149.0 L 905.0 149.0 L 905.0 204.0 L 930.0 204.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="881.0" y="195.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="905.0" y="207.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">1 - n (MaLoai)</text>
+<path d="M 1190.0 204.0 L 1215.0 204.0 L 1215.0 149.0 L 1240.0 149.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1191.0" y="140.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="1215.0" y="152.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">1 - 1 (MaSP)</text>
+<path d="M 215.0 584.0 L 215.0 612.0 L 215.0 612.0 L 215.0 640.0" fill="none" stroke="#d97706" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="191.0" y="603.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1" /><text x="215.0" y="615.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#d97706">1 - n</text>
+<path d="M 515.0 584.0 L 515.0 612.0 L 515.0 612.0 L 515.0 640.0" fill="none" stroke="#d97706" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="491.0" y="603.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1" /><text x="515.0" y="615.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#d97706">1 - n</text>
+<path d="M 855.0 584.0 L 855.0 612.0 L 855.0 612.0 L 855.0 640.0" fill="none" stroke="#ec4899" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="831.0" y="603.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1" /><text x="855.0" y="615.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ec4899">1 - n</text>
+<path d="M 1155.0 584.0 L 1155.0 612.0 L 1155.0 612.0 L 1155.0 640.0" fill="none" stroke="#ec4899" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1131.0" y="603.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1" /><text x="1155.0" y="615.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ec4899">1 - n</text>
+<path d="M 1490.0 584.0 L 1490.0 612.0 L 1490.0 612.0 L 1490.0 640.0" fill="none" stroke="#06b6d4" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1466.0" y="603.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#06b6d4" stroke-width="1" /><text x="1490.0" y="615.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#06b6d4">1 - n</text>
+<path d="M 1770.0 540.0 L 1770.0 590.0 L 1770.0 590.0 L 1770.0 640.0" fill="none" stroke="#06b6d4" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1746.0" y="581.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#06b6d4" stroke-width="1" /><text x="1770.0" y="593.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#06b6d4">1 - n</text>
+<path d="M 2050.0 606.0 L 2050.0 623.0 L 2050.0 623.0 L 2050.0 640.0" fill="none" stroke="#06b6d4" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="2026.0" y="614.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#06b6d4" stroke-width="1" /><text x="2050.0" y="626.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#06b6d4">1 - n</text>
+<path d="M 2375.0 606.0 L 2375.0 633.0 L 2375.0 633.0 L 2375.0 660.0" fill="none" stroke="#8b5cf6" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="2351.0" y="624.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#8b5cf6" stroke-width="1" /><text x="2375.0" y="636.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#8b5cf6">1 - n</text>
+<path d="M 340.0 502.0 L 365.0 502.0 L 365.0 502.0 L 390.0 502.0" fill="none" stroke="#d97706" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="341.0" y="493.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1" /><text x="365.0" y="505.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#d97706">1 - n (MaDDH)</text>
+<path d="M 980.0 502.0 L 1005.0 502.0 L 1005.0 502.0 L 1030.0 502.0" fill="none" stroke="#ec4899" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="981.0" y="493.0" width="48" height="18" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1" /><text x="1005.0" y="505.0" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ec4899">1 - 1 (MaDH)</text>
+<path d="M 1155.0 584.0 L 1155.0 780.0 L 1155.0 860.0 L 1155.0 860.0" fill="none" stroke="#ec4899" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1131" y="851" width="48" height="18" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1" /><text x="1155" y="863" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#ec4899">1 - n (MaHD)</text>
+<path d="M 980.0 502.0 L 1000.0 480.0 L 1000.0 390.0 L 1340.0 390.0 L 1340.0 480.0 L 1370.0 502.0" fill="none" stroke="#06b6d4" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1316" y="381" width="48" height="18" rx="4" fill="#ffffff" stroke="#06b6d4" stroke-width="1" /><text x="1340" y="393" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#06b6d4">1 - n (MaDH)</text>
+<path d="M 980.0 502.0 L 1000.0 520.0 L 1000.0 380.0 L 1910.0 380.0 L 1910.0 480.0 L 1930.0 513.0" fill="none" stroke="#06b6d4" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1886" y="371" width="48" height="18" rx="4" fill="#ffffff" stroke="#06b6d4" stroke-width="1" /><text x="1910" y="383" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#06b6d4">1 - n (MaDH)</text>
+<path d="M 1630.0 242.0 L 1630.0 270.0 L 215.0 270.0 L 215.0 420.0" fill="none" stroke="#0284c7" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="191" y="261" width="48" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" /><text x="215" y="273" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0284c7">1 - n (MaNCC)</text>
+<path d="M 1630.0 242.0 L 1630.0 310.0 L 70.0 310.0 L 70.0 930.0 L 350.0 964.0" fill="none" stroke="#0284c7" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="46" y="301" width="48" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" /><text x="70" y="313" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0284c7">1 - n (MaNCC)</text>
+<path d="M 1920.0 264.0 L 1920.0 290.0 L 855.0 290.0 L 855.0 420.0" fill="none" stroke="#0284c7" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="831" y="281" width="48" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" /><text x="855" y="293" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0284c7">1 - n (MaKH)</text>
+<path d="M 1920.0 264.0 L 1920.0 300.0 L 2050.0 300.0 L 2050.0 420.0" fill="none" stroke="#0284c7" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="2026" y="291" width="48" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" /><text x="2050" y="303" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#0284c7">1 - n (MaKH)</text>
+<path d="M 1060.0 308.0 L 1060.0 320.0 L 50.0 320.0 L 50.0 680.0 L 90.0 711.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="26" y="311" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="50" y="323" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 330.0 L 515.0 330.0 L 515.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="491" y="321" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="515" y="333" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 340.0 L 855.0 340.0 L 855.0 620.0 L 810.0 620.0 L 855.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="831" y="611" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="855" y="623" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 340.0 L 1155.0 340.0 L 1155.0 620.0 L 1110.0 620.0 L 1155.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1131" y="611" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="1155" y="623" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 350.0 L 1490.0 350.0 L 1490.0 620.0 L 1450.0 620.0 L 1490.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1466" y="611" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="1490" y="623" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 350.0 L 1770.0 350.0 L 1770.0 620.0 L 1730.0 620.0 L 1770.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1746" y="611" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="1770" y="623" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 360.0 L 2050.0 360.0 L 2050.0 620.0 L 2010.0 620.0 L 2050.0 640.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="2026" y="611" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="2050" y="623" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 1060.0 308.0 L 1060.0 360.0 L 2375.0 360.0 L 2375.0 640.0 L 2375.0 660.0" fill="none" stroke="#16a34a" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="2351" y="351" width="48" height="18" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1" /><text x="2375" y="363" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#16a34a">MaSP</text>
+<path d="M 475.0 264.0 L 475.0 290.0 L 260.0 290.0 L 260.0 420.0 L 215.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="236" y="281" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="260" y="293" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 290.0 L 515.0 290.0 L 515.0 420.0 L 515.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="491" y="281" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="515" y="293" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 280.0 L 780.0 280.0 L 780.0 420.0 L 855.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="756" y="271" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="780" y="283" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 280.0 L 1080.0 280.0 L 1080.0 420.0 L 1155.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1056" y="271" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="1080" y="283" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 280.0 L 1420.0 280.0 L 1420.0 420.0 L 1490.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1396" y="271" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="1420" y="283" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 280.0 L 1700.0 280.0 L 1700.0 420.0 L 1770.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1676" y="271" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="1700" y="283" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 280.0 L 1980.0 280.0 L 1980.0 420.0 L 2050.0 420.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="1956" y="271" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="1980" y="283" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<path d="M 475.0 264.0 L 475.0 300.0 L 40.0 300.0 L 40.0 930.0 L 90.0 964.0" fill="none" stroke="#64748b" stroke-width="1.4" marker-start="url(#one)" marker-end="url(#crow)"/>
+<rect x="16" y="291" width="48" height="18" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1" /><text x="40" y="303" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#64748b">MaNV</text>
+<!-- 25 TABLE BOXES -->
+<!-- Table: VaiTro -->
+<g id="tbl_VaiTro" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="90" y="100" width="210" height="76" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 90 106 Q 90 100 96 100 L 294 100 Q 300 100 300 106 L 300 130 L 90 130 Z" fill="#0284c7"/>
+  <text x="195.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">VaiTro</text>
+  <line x1="190" y1="130" x2="190" y2="176" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="98" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaVT</text>
+  <text x="198" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="152" x2="300" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="167" font-size="11" font-weight="normal" fill="#334155">TenVT</text>
+  <text x="198" y="167" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR</text>
+</g>
+<!-- Table: NhanVien -->
+<g id="tbl_NhanVien" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="350" y="100" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 350 106 Q 350 100 356 100 L 594 100 Q 600 100 600 106 L 600 130 L 350 130 Z" fill="#0284c7"/>
+  <text x="475.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">NhanVien</text>
+  <line x1="470" y1="130" x2="470" y2="264" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="358" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaNV</text>
+  <text x="478" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="350" y1="152" x2="600" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="358" y="167" font-size="11" font-weight="normal" fill="#334155">🔗 MaVT</text>
+  <text x="478" y="167" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="350" y1="174" x2="600" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="358" y="189" font-size="11" font-weight="normal" fill="#334155">HoTen</text>
+  <text x="478" y="189" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="350" y1="196" x2="600" y2="196" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="358" y="211" font-size="11" font-weight="normal" fill="#334155">ChucVu</text>
+  <text x="478" y="211" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(50)</text>
+  <line x1="350" y1="218" x2="600" y2="218" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="358" y="233" font-size="11" font-weight="normal" fill="#334155">SDT</text>
+  <text x="478" y="233" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(15)</text>
+  <line x1="350" y1="240" x2="600" y2="240" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="358" y="255" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="478" y="255" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(20)</text>
+</g>
+<!-- Table: LoaiHang -->
+<g id="tbl_LoaiHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="650" y="100" width="230" height="98" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 650 106 Q 650 100 656 100 L 874 100 Q 880 100 880 106 L 880 130 L 650 130 Z" fill="#0284c7"/>
+  <text x="765.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">LoaiHang</text>
+  <line x1="760" y1="130" x2="760" y2="198" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="658" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaLoai</text>
+  <text x="768" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="650" y1="152" x2="880" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="658" y="167" font-size="11" font-weight="normal" fill="#334155">TenLoai</text>
+  <text x="768" y="167" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="650" y1="174" x2="880" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="658" y="189" font-size="11" font-weight="normal" fill="#334155">MoTa</text>
+  <text x="768" y="189" font-size="10.5" font-family="monospace" fill="#64748b">TEXT</text>
+</g>
+<!-- Table: SanPham -->
+<g id="tbl_SanPham" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="930" y="100" width="260" height="208" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 930 106 Q 930 100 936 100 L 1184 100 Q 1190 100 1190 106 L 1190 130 L 930 130 Z" fill="#0284c7"/>
+  <text x="1060.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">SanPham</text>
+  <line x1="1054" y1="130" x2="1054" y2="308" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="938" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaSP</text>
+  <text x="1062" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="930" y1="152" x2="1190" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="167" font-size="11" font-weight="normal" fill="#334155">🔗 MaLoai</text>
+  <text x="1062" y="167" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="930" y1="174" x2="1190" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="189" font-size="11" font-weight="normal" fill="#334155">TenSP</text>
+  <text x="1062" y="189" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="930" y1="196" x2="1190" y2="196" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="211" font-size="11" font-weight="normal" fill="#334155">DonViTinh</text>
+  <text x="1062" y="211" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(50)</text>
+  <line x1="930" y1="218" x2="1190" y2="218" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="233" font-size="11" font-weight="normal" fill="#334155">GiaNhap</text>
+  <text x="1062" y="233" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="930" y1="240" x2="1190" y2="240" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="255" font-size="11" font-weight="normal" fill="#334155">GiaBan</text>
+  <text x="1062" y="255" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="930" y1="262" x2="1190" y2="262" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="277" font-size="11" font-weight="normal" fill="#334155">HanSuDung</text>
+  <text x="1062" y="277" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="930" y1="284" x2="1190" y2="284" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="938" y="299" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="1062" y="299" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(20)</text>
+</g>
+<!-- Table: TonKho -->
+<g id="tbl_TonKho" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1240" y="100" width="220" height="98" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1240 106 Q 1240 100 1246 100 L 1454 100 Q 1460 100 1460 106 L 1460 130 L 1240 130 Z" fill="#0284c7"/>
+  <text x="1350.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">TonKho</text>
+  <line x1="1345" y1="130" x2="1345" y2="198" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1248" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="1353" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1240" y1="152" x2="1460" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1248" y="167" font-size="11" font-weight="normal" fill="#334155">SoLuongTon</text>
+  <text x="1353" y="167" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1240" y1="174" x2="1460" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1248" y="189" font-size="11" font-weight="normal" fill="#334155">NgayCapNhat</text>
+  <text x="1353" y="189" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+</g>
+<!-- Table: NhaCungCap -->
+<g id="tbl_NhaCungCap" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1510" y="100" width="240" height="142" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1510 106 Q 1510 100 1516 100 L 1744 100 Q 1750 100 1750 106 L 1750 130 L 1510 130 Z" fill="#0284c7"/>
+  <text x="1630.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">NhaCungCap</text>
+  <line x1="1625" y1="130" x2="1625" y2="242" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1518" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaNCC</text>
+  <text x="1633" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1510" y1="152" x2="1750" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1518" y="167" font-size="11" font-weight="normal" fill="#334155">TenNCC</text>
+  <text x="1633" y="167" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="1510" y1="174" x2="1750" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1518" y="189" font-size="11" font-weight="normal" fill="#334155">SDT</text>
+  <text x="1633" y="189" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(15)</text>
+  <line x1="1510" y1="196" x2="1750" y2="196" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1518" y="211" font-size="11" font-weight="normal" fill="#334155">DiaChi</text>
+  <text x="1633" y="211" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(200)</text>
+  <line x1="1510" y1="218" x2="1750" y2="218" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1518" y="233" font-size="11" font-weight="normal" fill="#334155">Email</text>
+  <text x="1633" y="233" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+</g>
+<!-- Table: KhachHang -->
+<g id="tbl_KhachHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1800" y="100" width="240" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1800 106 Q 1800 100 1806 100 L 2034 100 Q 2040 100 2040 106 L 2040 130 L 1800 130 Z" fill="#0284c7"/>
+  <text x="1920.0" y="120" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">KhachHang</text>
+  <line x1="1915" y1="130" x2="1915" y2="264" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1808" y="145" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaKH</text>
+  <text x="1923" y="145" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1800" y1="152" x2="2040" y2="152" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1808" y="167" font-size="11" font-weight="normal" fill="#334155">HoTen</text>
+  <text x="1923" y="167" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="1800" y1="174" x2="2040" y2="174" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1808" y="189" font-size="11" font-weight="normal" fill="#334155">SDT</text>
+  <text x="1923" y="189" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(15)</text>
+  <line x1="1800" y1="196" x2="2040" y2="196" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1808" y="211" font-size="11" font-weight="normal" fill="#334155">Email</text>
+  <text x="1923" y="211" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="1800" y1="218" x2="2040" y2="218" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1808" y="233" font-size="11" font-weight="normal" fill="#334155">DiaChi</text>
+  <text x="1923" y="233" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(200)</text>
+  <line x1="1800" y1="240" x2="2040" y2="240" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1808" y="255" font-size="11" font-weight="normal" fill="#334155">DiemTichLuy</text>
+  <text x="1923" y="255" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+</g>
+<!-- Table: DonDat_Hang -->
+<g id="tbl_DonDat_Hang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="90" y="420" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 90 426 Q 90 420 96 420 L 334 420 Q 340 420 340 426 L 340 450 L 90 450 Z" fill="#d97706"/>
+  <text x="215.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">DonDat_Hang</text>
+  <line x1="210" y1="450" x2="210" y2="584" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="98" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaDDH</text>
+  <text x="218" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="472" x2="340" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaNCC</text>
+  <text x="218" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="494" x2="340" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="218" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="516" x2="340" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="531" font-size="11" font-weight="normal" fill="#334155">NgayDat</text>
+  <text x="218" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="90" y1="538" x2="340" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="553" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="218" y="553" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(20)</text>
+  <line x1="90" y1="560" x2="340" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="575" font-size="11" font-weight="normal" fill="#334155">TongTien</text>
+  <text x="218" y="575" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: CT_DonDathang -->
+<g id="tbl_CT_DonDathang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="90" y="640" width="250" height="142" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 90 646 Q 90 640 96 640 L 334 640 Q 340 640 340 646 L 340 670 L 90 670 Z" fill="#d97706"/>
+  <text x="215.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_DonDathang</text>
+  <line x1="210" y1="670" x2="210" y2="782" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="98" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaDDH</text>
+  <text x="218" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="692" x2="340" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="218" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="714" x2="340" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="218" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="736" x2="340" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="218" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="90" y1="758" x2="340" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="773" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="218" y="773" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: PhieuNhap -->
+<g id="tbl_PhieuNhap" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="390" y="420" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 390 426 Q 390 420 396 420 L 634 420 Q 640 420 640 426 L 640 450 L 390 450 Z" fill="#d97706"/>
+  <text x="515.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuNhap</text>
+  <line x1="510" y1="450" x2="510" y2="584" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="398" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaPN</text>
+  <text x="518" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="472" x2="640" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaDDH</text>
+  <text x="518" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="494" x2="640" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="518" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="516" x2="640" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="531" font-size="11" font-weight="normal" fill="#334155">NgayNhap</text>
+  <text x="518" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="390" y1="538" x2="640" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="553" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="518" y="553" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+  <line x1="390" y1="560" x2="640" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="575" font-size="11" font-weight="normal" fill="#334155">TongTien</text>
+  <text x="518" y="575" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: CT_PhieuNhap -->
+<g id="tbl_CT_PhieuNhap" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="390" y="640" width="250" height="142" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 390 646 Q 390 640 396 640 L 634 640 Q 640 640 640 646 L 640 670 L 390 670 Z" fill="#d97706"/>
+  <text x="515.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuNhap</text>
+  <line x1="510" y1="670" x2="510" y2="782" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="398" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaPN</text>
+  <text x="518" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="692" x2="640" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="518" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="714" x2="640" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="518" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="390" y1="736" x2="640" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="518" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="390" y1="758" x2="640" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="398" y="773" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="518" y="773" font-size="10.5" font-family="monospace" fill="#64748b">(10,2)</text>
+</g>
+<!-- Table: CongNo -->
+<g id="tbl_CongNo" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="90" y="860" width="260" height="208" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 90 866 Q 90 860 96 860 L 344 860 Q 350 860 350 866 L 350 890 L 90 890 Z" fill="#d97706"/>
+  <text x="220.0" y="880" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CongNo</text>
+  <line x1="214" y1="890" x2="214" y2="1068" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="98" y="905" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaCN</text>
+  <text x="222" y="905" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="912" x2="350" y2="912" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="927" font-size="11" font-weight="normal" fill="#334155">🔗 MaNCC</text>
+  <text x="222" y="927" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="934" x2="350" y2="934" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="949" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="222" y="949" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="90" y1="956" x2="350" y2="956" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="971" font-size="11" font-weight="normal" fill="#334155">NgayPhatSinh</text>
+  <text x="222" y="971" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="90" y1="978" x2="350" y2="978" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="993" font-size="11" font-weight="normal" fill="#334155">SoTien</text>
+  <text x="222" y="993" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="90" y1="1000" x2="350" y2="1000" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="1015" font-size="11" font-weight="normal" fill="#334155">SoTienDaTra</text>
+  <text x="222" y="1015" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="90" y1="1022" x2="350" y2="1022" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="1037" font-size="11" font-weight="normal" fill="#334155">SoTienConLai</text>
+  <text x="222" y="1037" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="90" y1="1044" x2="350" y2="1044" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="98" y="1059" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="222" y="1059" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: DonHang -->
+<g id="tbl_DonHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="730" y="420" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 730 426 Q 730 420 736 420 L 974 420 Q 980 420 980 426 L 980 450 L 730 450 Z" fill="#db2777"/>
+  <text x="855.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">DonHang</text>
+  <line x1="850" y1="450" x2="850" y2="584" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="738" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaDH</text>
+  <text x="858" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="472" x2="980" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaKH</text>
+  <text x="858" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="494" x2="980" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="858" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="516" x2="980" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="531" font-size="11" font-weight="normal" fill="#334155">NgayDat</text>
+  <text x="858" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="730" y1="538" x2="980" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="553" font-size="11" font-weight="normal" fill="#334155">TongTien</text>
+  <text x="858" y="553" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="730" y1="560" x2="980" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="575" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="858" y="575" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: CT_DonHang -->
+<g id="tbl_CT_DonHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="730" y="640" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 730 646 Q 730 640 736 640 L 974 640 Q 980 640 980 646 L 980 670 L 730 670 Z" fill="#db2777"/>
+  <text x="855.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_DonHang</text>
+  <line x1="850" y1="670" x2="850" y2="804" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="738" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaDH</text>
+  <text x="858" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="692" x2="980" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="858" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="714" x2="980" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="858" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="730" y1="736" x2="980" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="858" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="730" y1="758" x2="980" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="773" font-size="11" font-weight="normal" fill="#334155">GiamGia</text>
+  <text x="858" y="773" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="730" y1="780" x2="980" y2="780" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="738" y="795" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="858" y="795" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: HoaDon -->
+<g id="tbl_HoaDon" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1030" y="420" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1030 426 Q 1030 420 1036 420 L 1274 420 Q 1280 420 1280 426 L 1280 450 L 1030 450 Z" fill="#db2777"/>
+  <text x="1155.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">HoaDon</text>
+  <line x1="1150" y1="450" x2="1150" y2="584" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1038" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaHD</text>
+  <text x="1158" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="472" x2="1280" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaDH</text>
+  <text x="1158" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="494" x2="1280" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="1158" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="516" x2="1280" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="531" font-size="11" font-weight="normal" fill="#334155">NgayLap</text>
+  <text x="1158" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="1030" y1="538" x2="1280" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="553" font-size="11" font-weight="normal" fill="#334155">TongTien</text>
+  <text x="1158" y="553" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1030" y1="560" x2="1280" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="575" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="1158" y="575" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: CT_HoaDon -->
+<g id="tbl_CT_HoaDon" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1030" y="640" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1030 646 Q 1030 640 1036 640 L 1274 640 Q 1280 640 1280 646 L 1280 670 L 1030 670 Z" fill="#db2777"/>
+  <text x="1155.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_HoaDon</text>
+  <line x1="1150" y1="670" x2="1150" y2="804" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1038" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaHD</text>
+  <text x="1158" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="692" x2="1280" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="1158" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="714" x2="1280" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="1158" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="736" x2="1280" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="1158" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1030" y1="758" x2="1280" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="773" font-size="11" font-weight="normal" fill="#334155">GiamGia</text>
+  <text x="1158" y="773" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1030" y1="780" x2="1280" y2="780" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="795" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="1158" y="795" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: ThanhToan -->
+<g id="tbl_ThanhToan" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1030" y="860" width="250" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1030 866 Q 1030 860 1036 860 L 1274 860 Q 1280 860 1280 866 L 1280 890 L 1030 890 Z" fill="#db2777"/>
+  <text x="1155.0" y="880" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">ThanhToan</text>
+  <line x1="1150" y1="890" x2="1150" y2="1024" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1038" y="905" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaTT</text>
+  <text x="1158" y="905" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="912" x2="1280" y2="912" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="927" font-size="11" font-weight="normal" fill="#334155">🔗 MaHD</text>
+  <text x="1158" y="927" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1030" y1="934" x2="1280" y2="934" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="949" font-size="11" font-weight="normal" fill="#334155">PhuongThuc</text>
+  <text x="1158" y="949" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(50)</text>
+  <line x1="1030" y1="956" x2="1280" y2="956" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="971" font-size="11" font-weight="normal" fill="#334155">SoTien</text>
+  <text x="1158" y="971" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1030" y1="978" x2="1280" y2="978" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="993" font-size="11" font-weight="normal" fill="#334155">NgayThanhToan</text>
+  <text x="1158" y="993" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="1030" y1="1000" x2="1280" y2="1000" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1038" y="1015" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="1158" y="1015" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: PhieuXuat -->
+<g id="tbl_PhieuXuat" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1370" y="420" width="240" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1370 426 Q 1370 420 1376 420 L 1604 420 Q 1610 420 1610 426 L 1610 450 L 1370 450 Z" fill="#0891b2"/>
+  <text x="1490.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuXuat</text>
+  <line x1="1485" y1="450" x2="1485" y2="584" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1378" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaPX</text>
+  <text x="1493" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="472" x2="1610" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaDH</text>
+  <text x="1493" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="494" x2="1610" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="1493" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="516" x2="1610" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="531" font-size="11" font-weight="normal" fill="#334155">NgayXuat</text>
+  <text x="1493" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="1370" y1="538" x2="1610" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="553" font-size="11" font-weight="normal" fill="#334155">LyDoXuat</text>
+  <text x="1493" y="553" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(200)</text>
+  <line x1="1370" y1="560" x2="1610" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="575" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="1493" y="575" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: CT_PhieuXuat -->
+<g id="tbl_CT_PhieuXuat" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1370" y="640" width="240" height="142" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1370 646 Q 1370 640 1376 640 L 1604 640 Q 1610 640 1610 646 L 1610 670 L 1370 670 Z" fill="#0891b2"/>
+  <text x="1490.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuXuat</text>
+  <line x1="1485" y1="670" x2="1485" y2="782" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1378" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaPX</text>
+  <text x="1493" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="692" x2="1610" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="1493" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="714" x2="1610" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="1493" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1370" y1="736" x2="1610" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="1493" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1370" y1="758" x2="1610" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1378" y="773" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="1493" y="773" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+<!-- Table: KiemKe -->
+<g id="tbl_KiemKe" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1650" y="420" width="240" height="120" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1650 426 Q 1650 420 1656 420 L 1884 420 Q 1890 420 1890 426 L 1890 450 L 1650 450 Z" fill="#0891b2"/>
+  <text x="1770.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">KiemKe</text>
+  <line x1="1765" y1="450" x2="1765" y2="540" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1658" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaKK</text>
+  <text x="1773" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="472" x2="1890" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="1773" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="494" x2="1890" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="509" font-size="11" font-weight="normal" fill="#334155">NgayKiemKe</text>
+  <text x="1773" y="509" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="1650" y1="516" x2="1890" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="531" font-size="11" font-weight="normal" fill="#334155">GhiChu</text>
+  <text x="1773" y="531" font-size="10.5" font-family="monospace" fill="#64748b">TEXT</text>
+</g>
+<!-- Table: CT_KiemKe -->
+<g id="tbl_CT_KiemKe" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1650" y="640" width="240" height="142" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1650 646 Q 1650 640 1656 640 L 1884 640 Q 1890 640 1890 646 L 1890 670 L 1650 670 Z" fill="#0891b2"/>
+  <text x="1770.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_KiemKe</text>
+  <line x1="1765" y1="670" x2="1765" y2="782" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1658" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaKK</text>
+  <text x="1773" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="692" x2="1890" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="1773" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="714" x2="1890" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuongHeThong</text>
+  <text x="1773" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="736" x2="1890" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="751" font-size="11" font-weight="normal" fill="#334155">SoLuongThucTe</text>
+  <text x="1773" y="751" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1650" y1="758" x2="1890" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1658" y="773" font-size="11" font-weight="normal" fill="#334155">ChenhLech</text>
+  <text x="1773" y="773" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+</g>
+<!-- Table: PhieuTraHang -->
+<g id="tbl_PhieuTraHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1930" y="420" width="240" height="186" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1930 426 Q 1930 420 1936 420 L 2164 420 Q 2170 420 2170 426 L 2170 450 L 1930 450 Z" fill="#0891b2"/>
+  <text x="2050.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">PhieuTraHang</text>
+  <line x1="2045" y1="450" x2="2045" y2="606" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1938" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaPTH</text>
+  <text x="2053" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="472" x2="2170" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="487" font-size="11" font-weight="normal" fill="#334155">🔗 MaDH</text>
+  <text x="2053" y="487" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="494" x2="2170" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="509" font-size="11" font-weight="normal" fill="#334155">🔗 MaKH</text>
+  <text x="2053" y="509" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="516" x2="2170" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="531" font-size="11" font-weight="normal" fill="#334155">🔗 MaNV</text>
+  <text x="2053" y="531" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="538" x2="2170" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="553" font-size="11" font-weight="normal" fill="#334155">NgayTra</text>
+  <text x="2053" y="553" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="1930" y1="560" x2="2170" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="575" font-size="11" font-weight="normal" fill="#334155">LyDo</text>
+  <text x="2053" y="575" font-size="10.5" font-family="monospace" fill="#64748b">TEXT</text>
+  <line x1="1930" y1="582" x2="2170" y2="582" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="597" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="2053" y="597" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: CT_PhieuTraHang -->
+<g id="tbl_CT_PhieuTraHang" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="1930" y="640" width="240" height="164" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 1930 646 Q 1930 640 1936 640 L 2164 640 Q 2170 640 2170 646 L 2170 670 L 1930 670 Z" fill="#0891b2"/>
+  <text x="2050.0" y="660" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_PhieuTraHang</text>
+  <line x1="2045" y1="670" x2="2045" y2="804" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="1938" y="685" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaPTH</text>
+  <text x="2053" y="685" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="692" x2="2170" y2="692" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="707" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="2053" y="707" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="714" x2="2170" y2="714" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="729" font-size="11" font-weight="normal" fill="#334155">SoLuong</text>
+  <text x="2053" y="729" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="1930" y1="736" x2="2170" y2="736" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="751" font-size="11" font-weight="normal" fill="#334155">DonGia</text>
+  <text x="2053" y="751" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1930" y1="758" x2="2170" y2="758" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="773" font-size="11" font-weight="normal" fill="#334155">ThanhTien</text>
+  <text x="2053" y="773" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+  <line x1="1930" y1="780" x2="2170" y2="780" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="1938" y="795" font-size="11" font-weight="normal" fill="#334155">LyDo</text>
+  <text x="2053" y="795" font-size="10.5" font-family="monospace" fill="#64748b">TEXT</text>
+</g>
+<!-- Table: KhuyenMai -->
+<g id="tbl_KhuyenMai" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="2250" y="420" width="250" height="186" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 2250 426 Q 2250 420 2256 420 L 2494 420 Q 2500 420 2500 426 L 2500 450 L 2250 450 Z" fill="#7c3aed"/>
+  <text x="2375.0" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">KhuyenMai</text>
+  <line x1="2370" y1="450" x2="2370" y2="606" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="2258" y="465" font-size="11" font-weight="bold" fill="#0f172a">🔑 MaKM</text>
+  <text x="2378" y="465" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="2250" y1="472" x2="2500" y2="472" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="487" font-size="11" font-weight="normal" fill="#334155">TenKM</text>
+  <text x="2378" y="487" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(100)</text>
+  <line x1="2250" y1="494" x2="2500" y2="494" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="509" font-size="11" font-weight="normal" fill="#334155">NgayBatDau</text>
+  <text x="2378" y="509" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="2250" y1="516" x2="2500" y2="516" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="531" font-size="11" font-weight="normal" fill="#334155">NgayKetThuc</text>
+  <text x="2378" y="531" font-size="10.5" font-family="monospace" fill="#64748b">DATE</text>
+  <line x1="2250" y1="538" x2="2500" y2="538" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="553" font-size="11" font-weight="normal" fill="#334155">PhanTramGiam</text>
+  <text x="2378" y="553" font-size="10.5" font-family="monospace" fill="#64748b">(5,2)</text>
+  <line x1="2250" y1="560" x2="2500" y2="560" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="575" font-size="11" font-weight="normal" fill="#334155">DieuKienApDung</text>
+  <text x="2378" y="575" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(200)</text>
+  <line x1="2250" y1="582" x2="2500" y2="582" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="597" font-size="11" font-weight="normal" fill="#334155">TrangThai</text>
+  <text x="2378" y="597" font-size="10.5" font-family="monospace" fill="#64748b">VARCHAR(30)</text>
+</g>
+<!-- Table: CT_KhuyenMai -->
+<g id="tbl_CT_KhuyenMai" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.06))">
+  <rect x="2250" y="660" width="250" height="98" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 2250 666 Q 2250 660 2256 660 L 2494 660 Q 2500 660 2500 666 L 2500 690 L 2250 690 Z" fill="#7c3aed"/>
+  <text x="2375.0" y="680" font-size="12" font-weight="bold" text-anchor="middle" fill="#ffffff">CT_KhuyenMai</text>
+  <line x1="2370" y1="690" x2="2370" y2="758" stroke="#e2e8f0" stroke-width="1.0"/>
+  <text x="2258" y="705" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaKM</text>
+  <text x="2378" y="705" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="2250" y1="712" x2="2500" y2="712" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="727" font-size="11" font-weight="bold" fill="#0f172a">🔑🔗 MaSP</text>
+  <text x="2378" y="727" font-size="10.5" font-family="monospace" fill="#64748b">INTEGER</text>
+  <line x1="2250" y1="734" x2="2500" y2="734" stroke="#f1f5f9" stroke-width="0.8"/>
+  <text x="2258" y="749" font-size="11" font-weight="normal" fill="#334155">GiaTriGiam</text>
+  <text x="2378" y="749" font-size="10.5" font-family="monospace" fill="#64748b">DECIMAL(10,2)</text>
+</g>
+</svg>
+  </div>
+</body>
+</html>

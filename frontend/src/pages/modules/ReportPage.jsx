@@ -275,10 +275,8 @@ export function ReportPage({ title = "Báo cáo & Thống kê" }) {
         }
         case "debts":
           printReport("debts", {
-            debts,
-            customerDebts: customerDebtsList,
+            debts: supplierDebtsList,
             supplierDebts: supplierDebtsList,
-            customers,
             suppliers,
             dateFrom,
             dateTo,
@@ -1007,7 +1005,7 @@ export function ReportPage({ title = "Báo cáo & Thống kê" }) {
                 </div>
                 {[
                   { type: "revenue", label: "Báo cáo doanh thu bán hàng" },
-                  { type: "debts", label: "Báo cáo công nợ tổng hợp" },
+                  { type: "debts", label: "Báo cáo công nợ nhà cung cấp" },
                 ].map((r) => (
                   <button
                     key={r.type}

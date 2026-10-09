@@ -113,9 +113,13 @@ export function NotificationPopover() {
             }
           });
 
-        // 3. Cảnh báo công nợ còn nợ
+        // 3. Cảnh báo công nợ NCC còn nợ
         debts
-          .filter((d) => d.TrangThai === "Còn nợ" || (d.SoTienConLai && Number(d.SoTienConLai) > 0))
+          .filter(
+            (d) =>
+              (d.LoaiCongNo === "Nhà cung cấp" || (!d.MaKH && (Boolean(d.MaNCC) || d.type === "suppliers"))) &&
+              (d.TrangThai === "Còn nợ" || (d.SoTienConLai && Number(d.SoTienConLai) > 0))
+          )
           .slice(0, 3)
           .forEach((d) => {
             const conLai = Number(d.SoTienConLai || d.SoTien || 0);
@@ -123,8 +127,8 @@ export function NotificationPopover() {
               id: `debt-${d.id || d.MaCN}`,
               type: "finance",
               category: "finance",
-              title: "Công nợ đến hạn thanh toán",
-              message: `Khoản nợ ${d.LoaiCongNo || "đối tác"} (${d.MaCN || "CN"}) còn nợ ${money.format(conLai)}.`,
+              title: "Công nợ NCC đến hạn thanh toán",
+              message: `Khoản nợ NCC (${d.MaCN || "CN"}) còn nợ ${money.format(conLai)}.`,
               time: d.NgayPhatSinh || "Cần thanh toán",
               path: "/debts",
               icon: BanknotesIcon,
