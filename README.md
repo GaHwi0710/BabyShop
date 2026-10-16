@@ -885,7 +885,7 @@ Dưới đây là các định hướng nâng cấp trong tương lai nhằm đ�
 | 6 | **Nguyễn Đình Tiền Hải** | **2354800071** | Xây dựng Dashboard thống kê, Biểu đồ trực quan hóa & Báo cáo tài chính |
 
 ### 3. Thông tin mã nguồn
-- **GitHub Repository**: [https://github.com/GaHwi0710/-ng-d-ng-Tin-h-c-trong-K-to-n](https://github.com/GaHwi0710/-ng-d-ng-Tin-h-c-trong-K-to-n)
+- **GitHub Repository**: [https://github.com/GaHwi0710/-ng-d-ng-Tin-h-c-trong-K-to-n](https://github.com/GaHwi0710/BabyShop)
 - **Email liên hệ**: `kieugiahuy0710@gmail.com`
 - **Địa bàn nghiên cứu**: Hà Nội – Năm 2026.
 
